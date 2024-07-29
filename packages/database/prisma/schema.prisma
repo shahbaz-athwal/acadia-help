@@ -22,8 +22,8 @@ model CourseFeedback {
   userId        Int
   user          User     @relation(fields: [userId], references: [id])
   professorName String
-  courseId      String
-  course        Course   @relation(fields: [courseId], references: [id])
+  courseCode      String
+  course        Course   @relation(fields: [courseCode], references: [courseCode])
   message       String
   grade         String?
   rating        Int
@@ -54,7 +54,7 @@ model Professor {
 
 model Course {
   id           String           @id @default(uuid())
-  courseCode   String
+  courseCode   String @unique
   courseName   String
   departmentId Int
   department   Department       @relation(fields: [departmentId], references: [id])
