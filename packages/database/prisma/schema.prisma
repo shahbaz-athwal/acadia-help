@@ -7,4 +7,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id                 Int                 @id @default(autoincrement())
+  email              String              @unique
+  isVerified         Boolean             @default(false)
+  otp                String?
+  otpExpiry          DateTime?
+  courseFeedbacks    CourseFeedback[]
+  professorFeedbacks ProfessorFeedback[]
+}
 
+model CourseFeedback {
+  id            String   @id @default(uuid())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  professorName String
+  courseId      String
+  course        Course   @relation(fields: [courseId], references: [id])
+  message       String
+  grade         String?
+  rating        Int
+  createdAt     DateTime @default(now())
+}
+
+model ProfessorFeedback {
+  id             String    @id @default(uuid())
+  userId         Int
+  user           User      @relation(fields: [userId], references: [id])
+  courseCode     String
+  professorId    Int
+  professor      Professor @relation(fields: [professorId], references: [id])
+  message        String
+  grade          String?
+  wouldTakeAgain Boolean
+  rating         Int
+  createdAt      DateTime  @default(now())
+}
+
+model Professor {
+  id        Int                 @id @default(autoincrement())
+  name      String
+  image     String?
+  courses   Course[]
+  feedbacks ProfessorFeedback[]
+}
+
+model Course {
+  id           String           @id @default(uuid())
+  courseCode   String
+  courseName   String
+  departmentId Int
+  department   Department       @relation(fields: [departmentId], references: [id])
+  professor    Professor[]
+  feedbacks    CourseFeedback[]
+}
+
+model Department {
+  id      Int      @id @default(autoincrement())
+  name    String
+  courses Course[]
+}
