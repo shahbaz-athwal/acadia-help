@@ -5,7 +5,7 @@ export async function getNotionPage(docId: string) {
     activeUser: process.env.NOTION_ACTIVE_USER,
     authToken: process.env.NOTION_TOKEN_V2,
   });
-  
+  console.log(docId);
   return await notion.getPage(docId);
 }
 
