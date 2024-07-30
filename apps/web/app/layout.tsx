@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import 'react-notion-x/src/styles.css'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -1,6 +1,12 @@
-function Home() {
+import RenderNotion from "../components/RenderNotion"
+import getNotionpage from "../utils/getNotionpage"
+
+async function Home() {
+  const res = await getNotionpage()
   return (
-    <div>Home</div>
+    <>
+     <RenderNotion recordMap={res} />
+    </>
   )
 }
 
