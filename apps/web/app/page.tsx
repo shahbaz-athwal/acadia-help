@@ -1,16 +1,22 @@
 import RenderNotion from "../components/RenderNotion";
-import { Course } from "@repo/db"
+import { Course } from "@repo/db";
 import { getAllCourses, getCourseById } from "../utils/dbQueries";
-import { createNotionPage } from "../utils/notion/createNotionPage";
-import getNotionPage from "../utils/notion/getNotionPage";
+import { getNotionPage } from "../utils/notion-client-utils";
+import { unstable_noStore } from "next/cache";
 
 async function Home() {
   // const res = await createNotionPage("Test")
   // console.log(res)
-  // const courses = await getAllCourses() 
-  const courses: Course | null = await getCourseById("c990971c-8d4d-41ac-8b3a-bf984fffdc56") 
-  console.log(courses?.notionDocId)
-  const docId = await getNotionPage(courses?.notionDocId!);
+  // await getNotionDatabase()
+  unstable_noStore()
+  const courses = await getAllCourses();
+  console.log(courses);
+
+  const course: Course | null = await getCourseById(
+    "c990971c-8d4d-41ac-8b3a-bf984fffdc56"
+  );
+  console.log(course?.notionDocId);
+  const docId = await getNotionPage(course?.notionDocId!);
   return (
     <>
       <RenderNotion recordMap={docId} />
