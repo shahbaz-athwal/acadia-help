@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.15",
     "@repo/ui": "*",
     "next": "^14.0.4",
     "notion-client": "^6.16.0",

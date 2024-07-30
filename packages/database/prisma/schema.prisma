@@ -22,7 +22,7 @@ model CourseFeedback {
   userId        Int
   user          User     @relation(fields: [userId], references: [id])
   professorName String
-  courseCode      String
+  courseCode    String
   course        Course   @relation(fields: [courseCode], references: [courseCode])
   message       String
   grade         String?
@@ -54,11 +54,13 @@ model Professor {
 
 model Course {
   id           String           @id @default(uuid())
-  courseCode   String @unique
+  courseCode   String           @unique
   courseName   String
   departmentId Int
+  docId        String
+  isDocReady   Boolean          @default(false)
   department   Department       @relation(fields: [departmentId], references: [id])
-  professor    Professor[]
+  professors   Professor[]
   feedbacks    CourseFeedback[]
 }
 
