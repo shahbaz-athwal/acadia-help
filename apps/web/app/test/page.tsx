@@ -15,8 +15,8 @@ async function Home() {
   const course: Course | null = await getCourseById(
     "c990971c-8d4d-41ac-8b3a-bf984fffdc56"
   );
-  console.log(course?.notionDocId);
-  const docId = await getNotionPage(course?.notionDocId!);
+  console.log(course?.docId);
+  const docId = await getNotionPage(course?.docId!);
   return (
     <>
       <RenderNotion recordMap={docId} />
