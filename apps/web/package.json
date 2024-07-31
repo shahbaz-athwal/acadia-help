@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
-    "@repo/ui": "*",
+    "@radix-ui/react-select": "^2.1.1",
     "@tabler/icons-react": "^3.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
