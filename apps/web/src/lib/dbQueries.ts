@@ -1,3 +1,4 @@
+import { Course, Prisma } from ".prisma/client";
 import db from "@repo/db/client";
 
 export async function getAllCourses() {
@@ -36,4 +37,10 @@ export async function getAllDepartments() {
     console.error(e);
     return [];
   }
+}
+
+export async function createCourse(data: Prisma.CourseCreateInput) {
+  return await db.course.create({
+    data: data
+  })
 }

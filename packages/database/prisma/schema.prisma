@@ -58,7 +58,7 @@ model Course {
   courseName   String
   departmentId Int
   description  String?
-  docId        String
+  docId        String?
   isDocReady   Boolean          @default(false)
   department   Department       @relation(fields: [departmentId], references: [id])
   professors   Professor[]

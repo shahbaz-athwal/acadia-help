@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import { CreatePageResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -6,8 +7,14 @@ const notion = new Client({
 
 const syllabusDatabaseId = process.env.NOTION_DATABASE_ID as string;
 
-export const createPageInDatabase = async (title: string) => {
-  const response = await notion.pages.create({
+interface NotionResponse {
+  url?: string;
+  id: string;
+  object: string;
+}
+
+export const createNotionPageInDatabase = async ({ code, name }: any) => {
+  const response: NotionResponse = await notion.pages.create({
     parent: {
       type: "database_id",
       database_id: syllabusDatabaseId,
@@ -18,7 +25,7 @@ export const createPageInDatabase = async (title: string) => {
         title: [
           {
             text: {
-              content: title,
+              content: code + " - " + name,
             },
           },
         ],
@@ -26,7 +33,7 @@ export const createPageInDatabase = async (title: string) => {
     },
   });
 
-  const docId = title + "-" + response.id;
+  const docId = response.url!.split("notion.so/")[1];
 
   return { success: true, docId };
 };
@@ -44,5 +51,3 @@ export const queryNotionDatabase = async () => {
   });
   console.log(response);
 };
-
-
