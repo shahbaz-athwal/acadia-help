@@ -57,6 +57,7 @@ model Course {
   courseCode   String           @unique
   courseName   String
   departmentId Int
+  description  String?
   docId        String
   isDocReady   Boolean          @default(false)
   department   Department       @relation(fields: [departmentId], references: [id])
