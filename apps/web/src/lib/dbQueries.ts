@@ -17,7 +17,7 @@ export async function getCourseById(id: string) {
         id,
       },
       include: {
-        professor: true,
+        professors: true,
         feedbacks: true,
       },
     });
@@ -25,5 +25,15 @@ export async function getCourseById(id: string) {
   } catch (e) {
     console.error(e);
     return null;
+  }
+}
+
+export async function getAllDepartments() {
+  try {
+    const departments = await db.department.findMany();
+    return departments;
+  } catch (e) {
+    console.error(e);
+    return [];
   }
 }
