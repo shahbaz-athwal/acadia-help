@@ -75,3 +75,7 @@ export async function getAllProfessors() {
   const professors = await db.professor.findMany();
   return professors;
 }
+
+export async function createDepartment(data: Prisma.DepartmentCreateInput) {
+  return await db.department.create({ data });
+}
