@@ -1,6 +1,5 @@
 "use client";
-
-import { updateCourse } from "@/actions/updateCourse";
+import { updateCourse } from "@/lib/dbQueries";
 import { Professor, Course } from "@prisma/client";
 import React, { useState } from "react";
 
@@ -15,10 +14,6 @@ const EditCourse = ({
   course: CourseCardProps;
   professors: Professor[];
 }) => {
-  const filteredProfessors = professors.filter(
-    (professor) => professor.departmentPrefix === course.departmentPrefix
-  );
-
   const [isEditing, setIsEditing] = useState(false);
   const [courseCode, setCourseCode] = useState(course.courseCode);
   const [courseName, setCourseName] = useState(course.courseName);
@@ -27,36 +22,34 @@ const EditCourse = ({
     course.professors
   );
 
-  const handleProfessorSelect = (id: number) => {
-    setSelectedProfessors((prevSelected) =>
-      prevSelected.some((prof) => prof.id === id)
-        ? prevSelected.filter((prof) => prof.id !== id)
-        : [...prevSelected, professors.find((prof) => prof.id === id)!]
+  const handleProfessorToggle = (id: number) => {
+    setSelectedProfessors((alreadySelected) =>
+      alreadySelected.some((prof) => prof.id === id)
+        ? alreadySelected.filter((prof) => prof.id !== id)
+        : [...alreadySelected, professors.find((prof) => prof.id === id)!]
     );
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    const connectProfessors = selectedProfessors.map((professor) => ({
+      id: professor.id,
+    }));
 
-    const connectProfessors = selectedProfessors.filter((prof) =>
-      course.professors.every((cProf) => cProf.id !== prof.id)
-    );
-
-    const disconnectProfessors = course.professors.filter((cProf) =>
-      selectedProfessors.every((prof) => prof.id !== cProf.id)
-    );
+    const disconnectProfessors = course.professors
+      .filter((checkProf) =>
+        selectedProfessors.every((prof) => prof.id !== checkProf.id)
+      )
+      .map((professor) => ({
+        id: professor.id,
+      }));
 
     await updateCourse(course.id, {
       courseCode,
       courseName,
       description,
       professors: {
-        connect: connectProfessors.map((professor) => ({
-          id: professor.id,
-        })),
-        disconnect: disconnectProfessors.map((professor) => ({
-          id: professor.id,
-        })),
+        connect: connectProfessors,
+        disconnect: disconnectProfessors,
       },
     });
     setIsEditing(false);
@@ -83,6 +76,7 @@ const EditCourse = ({
               type="text"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
+              className="text-black"
             />
           </div>
           <div>
@@ -91,18 +85,19 @@ const EditCourse = ({
               id="description"
               value={description!}
               onChange={(e) => setDescription(e.target.value)}
+              className="text-black"
             />
           </div>
           <div>
             <label>Professors</label>
-            {filteredProfessors.map((professor) => (
+            {professors.map((professor) => (
               <div key={professor.id}>
                 <input
                   type="checkbox"
                   checked={selectedProfessors.some(
                     (prof) => prof.id === professor.id
                   )}
-                  onChange={() => handleProfessorSelect(professor.id)}
+                  onChange={() => handleProfessorToggle(professor.id)}
                 />
                 <span>{professor.name}</span>
               </div>

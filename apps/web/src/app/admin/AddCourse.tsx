@@ -1,5 +1,5 @@
 "use client";
-import { addCourse } from "@/actions/addCourse";
+import { addCourse } from "@/lib/dbQueries";
 import { useState } from "react";
 
 const AddCourse = () => {
