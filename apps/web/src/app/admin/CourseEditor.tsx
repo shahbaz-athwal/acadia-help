@@ -1,22 +1,23 @@
-import { getAllProfessors } from "@/lib/dbQueries";
-import { Course, Professor } from "@prisma/client";
-
+import { getCoursesByDepartment, getProfessorsByDepartment } from "@/lib/dbQueries";
 import React from "react";
 import EditCourse from "./EditCourse";
+import { unstable_noStore as noStore } from "next/cache";
 
-interface CourseCardProps extends Course {
-  professors: Professor[];
-}
-const CourseEditor = async ({ courses }: { courses: CourseCardProps[] }) => {
-  const professorss = await getAllProfessors();
+
+const CourseEditor = async ({ prefix }: { prefix: string }) => {
+  noStore()
+  const courses = await getCoursesByDepartment(prefix);
+  const professorss = await getProfessorsByDepartment(prefix);
   return (
-    <>
       <div>
         {courses.map((course, i) => {
-          return <EditCourse key={i} course={course} professors={professorss} />;
+          return (
+            <div className="py-2" key={i}>
+              <EditCourse  course={course} professors={professorss} />
+            </div>
+          );
         })}
       </div>
-    </>
   );
 };
 

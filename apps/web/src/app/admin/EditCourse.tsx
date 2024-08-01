@@ -1,6 +1,6 @@
 "use client";
 
-import { updateCourse } from "@/actions/updateCourse";
+import { updateCourse } from "@/lib/dbQueries";
 import { Professor, Course } from "@prisma/client";
 import React, { useState } from "react";
 
@@ -15,10 +15,6 @@ const EditCourse = ({
   course: CourseCardProps;
   professors: Professor[];
 }) => {
-  const filteredProfessors = professors.filter(
-    (professor) => professor.departmentPrefix === course.departmentPrefix
-  );
-
   const [isEditing, setIsEditing] = useState(false);
   const [courseCode, setCourseCode] = useState(course.courseCode);
   const [courseName, setCourseName] = useState(course.courseName);
@@ -83,6 +79,7 @@ const EditCourse = ({
               type="text"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
+              className="text-black"
             />
           </div>
           <div>
@@ -91,11 +88,12 @@ const EditCourse = ({
               id="description"
               value={description!}
               onChange={(e) => setDescription(e.target.value)}
+              className="text-black"
             />
           </div>
           <div>
             <label>Professors</label>
-            {filteredProfessors.map((professor) => (
+            {professors.map((professor) => (
               <div key={professor.id}>
                 <input
                   type="checkbox"
