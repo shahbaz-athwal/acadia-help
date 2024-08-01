@@ -4,16 +4,25 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Create departments
-  const compSciDept = await prisma.department.create({
-    data: {
-      name: "Computer Science",
-    },
-  });
-
-  const mathDept = await prisma.department.create({
-    data: {
-      name: "Math",
-    },
+   await prisma.department.createMany({
+    data: [
+      {
+        name: "Computer Science",
+        prefix: "COMP",
+      },
+      {
+        name: "Mathematics and Statistics",
+        prefix: "MATH",
+      },
+      {
+        name: "Business Administration",
+        prefix: "BUSI",
+      },
+      {
+        name: "Geology",
+        prefix: "GEOL",
+      },
+    ],
   });
 
   // Create user
@@ -28,24 +37,36 @@ async function main() {
   const darcy = await prisma.professor.create({
     data: {
       name: "Darcy Benoit",
+      department: {
+        connect: { prefix: "COMP" },
+      },
     },
   });
 
   const greg = await prisma.professor.create({
     data: {
       name: "Greg Lee",
+      department: {
+        connect: { prefix: "COMP" },
+      },
     },
   });
 
   const ian = await prisma.professor.create({
     data: {
       name: "Ian Beaton",
+      department: {
+        connect: { prefix: "MATH" },
+      },
     },
   });
 
   const caro = await prisma.professor.create({
     data: {
       name: "Caroline Coachran",
+      department: {
+        connect: { prefix: "MATH"},
+      },
     },
   });
 
@@ -56,7 +77,7 @@ async function main() {
       courseName: "Computer Programming 1",
       docId: "COMP1113-Computer-Programming-1-7e847d61e6244af48205e9bbd91d2166",
       department: {
-        connect: { id: compSciDept.id },
+        connect: { prefix: "COMP" },
       },
       professors: {
         connect: [{ id: darcy.id }, { id: greg.id }],
@@ -70,7 +91,7 @@ async function main() {
       courseName: "Data Structures and Algorithms",
       docId: "COMP2213-Data-Structures-and-Algorithms-24bc04260fc24bac9606453d1ed44db8",
       department: {
-        connect: { id: compSciDept.id },
+        connect: { prefix: "COMP" },
       },
       professors: {
         connect: [{ id: darcy.id }, { id: greg.id }],
@@ -84,7 +105,7 @@ async function main() {
       courseName: "Computer Programming 2",
       docId: "COMP1123-Computer-Programming-2-3b8cd659b7d34f1ea7ea33be53b4a1e5",
       department: {
-        connect: { id: compSciDept.id },
+        connect: { prefix: "COMP" },
       },
       professors: {
         connect: [{ id: greg.id }],
@@ -98,10 +119,10 @@ async function main() {
       courseName: "Introductory Calculus 1",
       docId: "MATH1013-Introductory-Calculus-1-5d13f3f75cfb4de4bfebf9b44db08e1e",
       department: {
-        connect: { id: mathDept.id },
+        connect: { prefix: "MATH" },
       },
       professors: {
-        connect: [{ id: ian.id }, {id: caro.id}],
+        connect: [{ id: ian.id }, { id: caro.id }],
       },
     },
   });
@@ -112,7 +133,7 @@ async function main() {
       courseName: "Statistics 1",
       docId: "MATH1253-Statistics-1-6e04cf0829f5433d82c24b603e9a7332",
       department: {
-        connect: { id: mathDept.id },
+        connect: { prefix: "MATH" },
       },
       professors: {
         connect: { id: ian.id },
@@ -120,156 +141,128 @@ async function main() {
     },
   });
 
-  // Create course feedbacks
-  await prisma.courseFeedback.createMany({
+  // Create feedbacks
+  await prisma.feedback.createMany({
     data: [
       {
         userId: user.id,
-        professorName: darcy.name,
+        professorId: darcy.id,
         courseCode: course1.courseCode,
         message: "Great course!",
-        rating: 5,
+        grade: "A",
+        quality: 5,
+        difficulty: 3,
+        bookRequired: true,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: greg.name,
+        professorId: greg.id,
         courseCode: course1.courseCode,
         message: "Very informative.",
-        rating: 4,
+        grade: "B",
+        quality: 4,
+        difficulty: 2,
+        bookRequired: false,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: darcy.name,
+        professorId: darcy.id,
         courseCode: course2.courseCode,
         message: "Challenging but rewarding.",
-        rating: 5,
+        grade: "A",
+        quality: 5,
+        difficulty: 4,
+        bookRequired: true,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: greg.name,
+        professorId: greg.id,
         courseCode: course2.courseCode,
         message: "Well structured.",
-        rating: 4,
+        grade: "B",
+        quality: 4,
+        difficulty: 3,
+        bookRequired: false,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: darcy.name,
+        professorId: darcy.id,
         courseCode: course3.courseCode,
         message: "Excellent course.",
-        rating: 5,
+        grade: "A",
+        quality: 5,
+        difficulty: 3,
+        bookRequired: true,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: greg.name,
+        professorId: greg.id,
         courseCode: course3.courseCode,
         message: "Highly recommend.",
-        rating: 4,
+        grade: "B",
+        quality: 4,
+        difficulty: 2,
+        bookRequired: false,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: ian.name,
+        professorId: ian.id,
         courseCode: course4.courseCode,
         message: "Very clear explanations.",
-        rating: 5,
+        grade: "A",
+        quality: 5,
+        difficulty: 2,
+        bookRequired: true,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: ian.name,
+        professorId: caro.id,
         courseCode: course4.courseCode,
         message: "Learned a lot.",
-        rating: 4,
+        grade: "B",
+        quality: 4,
+        difficulty: 3,
+        bookRequired: false,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: ian.name,
+        professorId: ian.id,
         courseCode: course5.courseCode,
         message: "Enjoyed the course.",
-        rating: 5,
+        grade: "A",
+        quality: 5,
+        difficulty: 2,
+        bookRequired: true,
+        attendance: true,
+        wouldTakeAgain: true,
       },
       {
         userId: user.id,
-        professorName: ian.name,
+        professorId: caro.id,
         courseCode: course5.courseCode,
         message: "Good balance of theory and practice.",
-        rating: 4,
-      },
-    ],
-  });
-
-  // Create professor feedbacks
-  await prisma.professorFeedback.createMany({
-    data: [
-      {
-        userId: user.id,
-        courseCode: course1.courseCode,
-        professorId: darcy.id,
-        message: "Darcy Benoit is amazing!",
+        grade: "B",
+        quality: 4,
+        difficulty: 3,
+        bookRequired: false,
+        attendance: true,
         wouldTakeAgain: true,
-        rating: 5,
-      },
-      {
-        userId: user.id,
-        courseCode: course1.courseCode,
-        professorId: greg.id,
-        message: "Greg Lee is very knowledgeable.",
-        wouldTakeAgain: true,
-        rating: 4,
-      },
-      {
-        userId: user.id,
-        courseCode: course2.courseCode,
-        professorId: darcy.id,
-        message: "Darcy Benoit explains well.",
-        wouldTakeAgain: true,
-        rating: 5,
-      },
-      {
-        userId: user.id,
-        courseCode: course2.courseCode,
-        professorId: greg.id,
-        message: "Greg Lee is very organized.",
-        wouldTakeAgain: true,
-        rating: 4,
-      },
-      {
-        userId: user.id,
-        courseCode: course3.courseCode,
-        professorId: darcy.id,
-        message: "Darcy Benoit is fantastic!",
-        wouldTakeAgain: true,
-        rating: 5,
-      },
-      {
-        userId: user.id,
-        courseCode: course3.courseCode,
-        professorId: greg.id,
-        message: "Greg Lee knows the subject well.",
-        wouldTakeAgain: true,
-        rating: 4,
-      },
-      {
-        userId: user.id,
-        courseCode: course4.courseCode,
-        professorId: ian.id,
-        message: "Ian Beaton is very clear.",
-        wouldTakeAgain: true,
-        rating: 5,
-      },
-      {
-        userId: user.id,
-        courseCode: course4.courseCode,
-        professorId: ian.id,
-        message: "Ian Beaton is very clear.",
-        wouldTakeAgain: true,
-        rating: 5,
-      },
-      {
-        userId: user.id,
-        courseCode: course5.courseCode,
-        professorId: ian.id,
-        message: "Ian Beaton is very clear.",
-        wouldTakeAgain: true,
-        rating: 5,
       },
     ],
   });
