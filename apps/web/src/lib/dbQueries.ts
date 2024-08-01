@@ -3,7 +3,11 @@ import db from "@repo/db/client";
 
 export async function getAllCourses() {
   try {
-    const courses = await db.course.findMany();
+    const courses = await db.course.findMany({
+      include: {
+        professors: true,
+      },
+    });
     return courses;
   } catch (e) {
     console.error(e);
@@ -41,6 +45,21 @@ export async function getAllDepartments() {
 
 export async function createCourse(data: Prisma.CourseCreateInput) {
   return await db.course.create({
-    data: data
-  })
+    data: data,
+  });
+}
+
+export async function getProfessorsByDepartment(prefix: string) {
+  const professors = await db.professor.findMany({
+    where: {
+      departmentPrefix: prefix,
+    },
+  });
+
+  return professors;
+}
+
+export async function getAllProfessors() {
+  const professors = await db.professor.findMany();
+  return professors;
 }
