@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { uploadProfilePicture } from "@/actions/uploadFile";
 
 interface ProfessorCardProps extends Professor {
   courses: Course[];
@@ -39,6 +40,7 @@ const EditProfessor = ({
   const [selectedCourses, setSelectedCourses] = useState<Course[]>(
     professor.courses
   );
+  const [file, setFile] = useState<File | undefined>(undefined);
 
   const handleCourseToggle = (courseCode: string) => {
     setSelectedCourses((alreadySelected) =>
@@ -51,30 +53,47 @@ const EditProfessor = ({
     );
   };
 
-  const handleSubmit = async () => {
-    const connectCourses = selectedCourses.map((course) => ({
-      courseCode: course.courseCode,
-    }));
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e?.target.files[0]);
+    }
+  };
 
-    const disconnectCourses = professor.courses
-      .filter((checkCourse) =>
-        selectedCourses.every(
-          (course) => course.courseCode !== checkCourse.courseCode
-        )
-      )
-      .map((course) => ({
+  const handleSubmit = async () => {
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const response = await uploadProfilePicture(formData);
+        console.log(response);
+      } else {
+        console.log("No file");
+      }
+
+      const connectCourses = selectedCourses.map((course) => ({
         courseCode: course.courseCode,
       }));
 
-    await updateProfessor(professor.id, {
-      name: professorName,
-      department: { connect: { prefix: department } },
-      bio,
-      courses: {
-        connect: connectCourses,
-        disconnect: disconnectCourses,
-      },
-    });
+      const disconnectCourses = professor.courses
+        .filter((checkCourse) =>
+          selectedCourses.every(
+            (course) => course.courseCode !== checkCourse.courseCode
+          )
+        )
+        .map((course) => ({
+          courseCode: course.courseCode,
+        }));
+
+      await updateProfessor(professor.id, {
+        name: professorName,
+        department: { connect: { prefix: department } },
+        bio,
+        courses: {
+          connect: connectCourses,
+          disconnect: disconnectCourses,
+        },
+      });
+    
   };
 
   return (
@@ -96,6 +115,14 @@ const EditProfessor = ({
           <DialogContent>
             <DialogTitle>Edit Professor</DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <Label htmlFor="professorPicture">Picture</Label>
+                <Input
+                  id="professorPicture"
+                  type="file"
+                  onChange={handleFileChange}
+                />
+              </div>
               <div>
                 <Label htmlFor="professorName">Name</Label>
                 <Input
@@ -161,3 +188,4 @@ const EditProfessor = ({
 };
 
 export default EditProfessor;
+
