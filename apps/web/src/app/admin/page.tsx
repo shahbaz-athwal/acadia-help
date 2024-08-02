@@ -1,13 +1,14 @@
 import { getAllDepartments } from "@/lib/dbQueries";
 import CourseEditor from "./CourseEditor";
 import AddDepartment from "./AddDepartment";
+import AddProfessor from "./AddProfessor";
 
 export default async function Page() {
 
   const departments = await getAllDepartments();
   return (
     <div>
-      <AddDepartment />
+      {/* <AddDepartment />
       {departments.map((department, i) => {
         return (
           <div key={i}>
@@ -17,7 +18,8 @@ export default async function Page() {
             </div>
           </div>
         );
-      })}
+      })} */}
+      <AddProfessor departments={departments} />
     </div>
   );
 }

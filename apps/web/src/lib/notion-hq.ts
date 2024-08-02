@@ -43,10 +43,4 @@ export const getNotionDatabase = async () => {
   });
   console.log(response);
 };
-
-export const queryNotionDatabase = async () => {
-  const response = await notion.databases.query({
-    database_id: syllabusDatabaseId,
-  });
-  console.log(response);
-};
+;
