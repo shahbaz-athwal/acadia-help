@@ -8,65 +8,90 @@ datasource db {
 }
 
 model User {
-  id                 Int                 @id @default(autoincrement())
-  email              String              @unique
-  isVerified         Boolean             @default(false)
-  otp                String?
-  otpExpiry          DateTime?
-  courseFeedbacks    CourseFeedback[]
-  professorFeedbacks ProfessorFeedback[]
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  isVerified Boolean    @default(false)
+  otp        String?
+  otpExpiry  DateTime?
+  feedbacks  Feedback[]
+  // courseFeedbacks    CourseFeedback[]
+  // professorFeedbacks ProfessorFeedback[]
 }
 
-model CourseFeedback {
-  id            String   @id @default(uuid())
-  userId        Int
-  user          User     @relation(fields: [userId], references: [id])
-  professorName String
-  courseCode    String
-  course        Course   @relation(fields: [courseCode], references: [courseCode])
-  message       String
-  grade         String?
-  rating        Int
-  createdAt     DateTime @default(now())
-}
-
-model ProfessorFeedback {
+model Feedback {
   id             String    @id @default(uuid())
-  userId         Int
-  user           User      @relation(fields: [userId], references: [id])
+  userId         Int?
+  user           User?     @relation(fields: [userId], references: [id])
+  message        String
+  grade          String
+  wouldTakeAgain Boolean?
+  quality        Int
+  difficulty     Int
+  bookRequired   Boolean
+  attendance     Boolean
   courseCode     String
+  course         Course    @relation(fields: [courseCode], references: [courseCode])
   professorId    Int
   professor      Professor @relation(fields: [professorId], references: [id])
-  message        String
-  grade          String?
-  wouldTakeAgain Boolean
-  rating         Int
   createdAt      DateTime  @default(now())
 }
 
+// model CourseFeedback {
+//   id            String   @id @default(uuid())
+//   userId        Int
+//   user          User     @relation(fields: [userId], references: [id])
+//   professorName String
+//   courseCode    String
+//   course        Course   @relation(fields: [courseCode], references: [courseCode])
+//   message       String
+//   grade         String?
+//   rating        Int
+//   createdAt     DateTime @default(now())
+// }
+
+// model ProfessorFeedback {
+//   id             String    @id @default(uuid())
+//   userId         Int
+//   user           User      @relation(fields: [userId], references: [id])
+//   courseCode     String
+//   professorId    Int
+//   professor      Professor @relation(fields: [professorId], references: [id])
+//   message        String
+//   grade          String?
+//   wouldTakeAgain Boolean?
+//   rating         Int
+//   createdAt      DateTime  @default(now())
+// }
+
 model Professor {
-  id        Int                 @id @default(autoincrement())
-  name      String
-  image     String?
-  courses   Course[]
-  feedbacks ProfessorFeedback[]
+  id               Int        @id @default(autoincrement())
+  name             String
+  image            String?
+  departmentPrefix String
+  department       Department @relation(fields: [departmentPrefix], references: [prefix])
+  bio              String?
+  courses          Course[]
+  feedbacks        Feedback[]
+  // feedbacks    ProfessorFeedback[]
 }
 
 model Course {
-  id           String           @id @default(uuid())
-  courseCode   String           @unique
-  courseName   String
-  departmentId Int
-  description  String?
-  docId        String?
-  isDocReady   Boolean          @default(false)
-  department   Department       @relation(fields: [departmentId], references: [id])
-  professors   Professor[]
-  feedbacks    CourseFeedback[]
+  id               String      @id @default(uuid())
+  courseCode       String      @unique
+  courseName       String
+  description      String?
+  docId            String?
+  isDocReady       Boolean     @default(false)
+  departmentPrefix String
+  department       Department  @relation(fields: [departmentPrefix], references: [prefix])
+  professors       Professor[]
+  feedbacks        Feedback[]
+  // feedbacks        CourseFeedback[]
 }
 
 model Department {
-  id      Int      @id @default(autoincrement())
-  name    String
-  courses Course[]
+  prefix     String      @id @unique
+  name       String
+  courses    Course[]
+  professors Professor[]
 }

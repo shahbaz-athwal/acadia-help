@@ -1,5 +1,4 @@
 import { Client } from "@notionhq/client";
-import { CreatePageResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -44,10 +43,4 @@ export const getNotionDatabase = async () => {
   });
   console.log(response);
 };
-
-export const queryNotionDatabase = async () => {
-  const response = await notion.databases.query({
-    database_id: syllabusDatabaseId,
-  });
-  console.log(response);
-};
+;

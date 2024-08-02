@@ -9,8 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Department } from "@repo/db";
 
-export const SelectDemo = ({ departments }: { departments: any }) => {
+interface SelectDemoProps {
+  departments: Department[];
+}
+
+export const SelectDemo: React.FC<SelectDemoProps> = ({ departments }) => {
   const handleValueChange = (val: string) => {
     console.log(val);
   };
@@ -23,8 +28,8 @@ export const SelectDemo = ({ departments }: { departments: any }) => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Departments</SelectLabel>
-          {departments.map((department: any) => (
-            <SelectItem key={department.id} value={department.name}>
+          {departments.map((department) => (
+            <SelectItem key={department.prefix} value={department.name}>
               {department.name}
             </SelectItem>
           ))}
