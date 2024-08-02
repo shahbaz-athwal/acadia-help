@@ -2,6 +2,7 @@ import { getCoursesByDepartment, getProfessorsByDepartment } from "@/lib/dbQueri
 import React from "react";
 import EditCourse from "./EditCourse";
 import { unstable_noStore as noStore } from "next/cache";
+import EditProfessor from "./EditProfessor";
 
 
 const CourseEditor = async ({ prefix }: { prefix: string }) => {
@@ -9,11 +10,20 @@ const CourseEditor = async ({ prefix }: { prefix: string }) => {
   const courses = await getCoursesByDepartment(prefix);
   const professors = await getProfessorsByDepartment(prefix);
   return (
+      // <div>
+      //   {courses.map((course, i) => {
+      //     return (
+      //       <div className="py-2" key={i}>
+      //         <EditCourse  course={course} professors={professors} />
+      //       </div>
+      //     );
+      //   })}
+      // </div>
       <div>
-        {courses.map((course, i) => {
+        {professors.map((professor, i) => {
           return (
             <div className="py-2" key={i}>
-              <EditCourse  course={course} professors={professors} />
+              <EditProfessor  courses={courses} professor={professor} />
             </div>
           );
         })}

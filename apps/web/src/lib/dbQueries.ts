@@ -45,6 +45,21 @@ export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {
   return updatedCourse;
 }
 
+export async function updateProfessor(
+  id: number,
+  data: Prisma.ProfessorUpdateInput
+) {
+  const updatedProfessor = await db.professor.update({
+    where: {
+      id,
+    },
+    data,
+  });
+
+  console.log(updatedProfessor);
+  return updatedProfessor;
+}
+
 export async function getAllDepartments() {
   return await db.department.findMany();
 }
@@ -66,13 +81,16 @@ export async function getProfessorsByDepartment(prefix: string) {
     where: {
       departmentPrefix: prefix,
     },
+    include: {
+      courses: true,
+    },
   });
 
   return professors;
 }
 
 export async function createProfessor(data: Prisma.ProfessorCreateInput) {
-  console.log(data)
+  console.log(data);
   return await db.professor.create({ data });
 }
 
