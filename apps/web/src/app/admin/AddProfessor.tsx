@@ -1,5 +1,13 @@
 "use client";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { createProfessor } from "@/lib/dbQueries";
 import { Department } from "@prisma/client";
 import { useState } from "react";
@@ -10,12 +18,12 @@ const AddProfessor = ({ departments }: { departments: Department[] }) => {
   const [bio, setBio] = useState("");
 
   const handleSubmit = async () => {
-   await createProfessor({
-        name: professorName,
-        department: {connect: {prefix: department}},
-        bio,
-        });
-};
+    await createProfessor({
+      name: professorName,
+      department: { connect: { prefix: department } },
+      bio,
+    });
+  };
 
   return (
     <form
@@ -30,23 +38,22 @@ const AddProfessor = ({ departments }: { departments: Department[] }) => {
         required
       />
 
-
       <Select onValueChange={setDepartment}>
-      <SelectTrigger className="w-[180px] text-white">
-        <SelectValue placeholder="Select a department" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Departments</SelectLabel>
-          {departments.map((department) => (
-            <SelectItem key={department.prefix} value={department.prefix}>
-              {department.name}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-      
+        <SelectTrigger className="w-[180px] text-white">
+          <SelectValue placeholder="Select a department" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Departments</SelectLabel>
+            {departments.map((department) => (
+              <SelectItem key={department.prefix} value={department.prefix}>
+                {department.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+
       <textarea
         value={bio}
         onChange={(e) => setBio(e.target.value)}
