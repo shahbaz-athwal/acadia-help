@@ -6,16 +6,18 @@ import CourseCard from './CourseCard';
 
 const CourseList: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {courses.map((course) => (
-        <CourseCard
-          key={course.id}
-          courseCode={course.courseCode}
-          courseName={course.courseName}
-          departmentId={course.departmentId}
-          description={course.description}
-        />
-      ))}
+    <div className='flex justify-center'>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {courses.map((course) => (
+          <CourseCard
+            key={course.id}
+            courseCode={course.courseCode}
+            courseName={course.courseName}
+            departmentId={course.departmentId}
+            description={course.description}
+          />
+        ))}
+      </div>
     </div>
   );
 };

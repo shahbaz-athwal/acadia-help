@@ -42,7 +42,7 @@ export const Navbar = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-full px-12 py-3.5 transition-all duration-300 bg-black"
+      className="fixed top-0 left-0 w-full px-12 py-3.5 transition-all duration-300 bg-pink"
       animate={controls}
       style={{ zIndex: 1000 }} // Ensure the navbar stays above other content
     >
