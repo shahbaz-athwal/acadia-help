@@ -10,6 +10,13 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
+import {
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -74,10 +81,8 @@ const EditProfessor = ({
     <div>
       <div>
         <h3>{professorName}</h3>
-        <p>{department}</p>
-        <p>{bio}</p>
         <p>Courses:</p>
-        <ul>
+        <ul className="p-2">
           {selectedCourses.map((course) => (
             <li key={course.id}>
               {course.courseCode} - {course.courseName}
@@ -119,21 +124,27 @@ const EditProfessor = ({
               </div>
               <div className="space-y-1">
                 <Label>Courses</Label>
-                {courses.map((course) => (
-                  <div key={course.id} className="space-x-2 flex items-center ">
-                    <Checkbox
-                      checked={selectedCourses.some(
-                        (selected) => selected.id === course.id
-                      )}
-                      onCheckedChange={() =>
-                        handleCourseToggle(course.courseCode)
-                      }
-                    />
-                    <div>
-                      {course.courseCode} - {course.courseName}
-                    </div>
-                  </div>
-                ))}
+                <Command className="rounded-lg border shadow-md">
+                  <CommandInput placeholder="Search course..." />
+                  <CommandList>
+                    <CommandEmpty>No results found.</CommandEmpty>
+                    {courses.map((course) => (
+                      <CommandItem key={course.id}>
+                        <Checkbox
+                          checked={selectedCourses.some(
+                            (selected) => selected.id === course.id
+                          )}
+                          onCheckedChange={() =>
+                            handleCourseToggle(course.courseCode)
+                          }
+                        />
+                        <span className="ml-2">
+                          {course.courseCode} - {course.courseName}
+                        </span>
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </Command>
               </div>
               <div className="w-full flex justify-end gap-8 pt-6">
                 <DialogClose asChild>
