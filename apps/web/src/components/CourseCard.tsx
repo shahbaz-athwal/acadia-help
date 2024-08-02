@@ -13,7 +13,7 @@ interface CourseCardProps {
 const CourseCard: React.FC<CourseCardProps> = ({ courseCode, courseName, departmentId, description }) => {
   return (
     <motion.div
-      className="bg-white/80 p-5 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer transform hover:scale-105"
+      className="bg-white p-5 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer transform hover:scale-105"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
