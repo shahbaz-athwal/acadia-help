@@ -21,7 +21,7 @@ model User {
 model Feedback {
   id             String    @id @default(uuid())
   userId         Int?
-  user           User?      @relation(fields: [userId], references: [id])
+  user           User?     @relation(fields: [userId], references: [id])
   message        String
   grade          String
   wouldTakeAgain Boolean?
@@ -64,13 +64,14 @@ model Feedback {
 // }
 
 model Professor {
-  id           Int        @id @default(autoincrement())
-  name         String
-  image        String?
+  id               Int        @id @default(autoincrement())
+  name             String
+  image            String?
   departmentPrefix String
-  department   Department @relation(fields: [departmentPrefix], references: [prefix])
-  courses      Course[]
-  feedbacks    Feedback[]
+  department       Department @relation(fields: [departmentPrefix], references: [prefix])
+  bio              String?
+  courses          Course[]
+  feedbacks        Feedback[]
   // feedbacks    ProfessorFeedback[]
 }
 
@@ -89,7 +90,7 @@ model Course {
 }
 
 model Department {
-  prefix     String      @unique @id
+  prefix     String      @id @unique
   name       String
   courses    Course[]
   professors Professor[]
