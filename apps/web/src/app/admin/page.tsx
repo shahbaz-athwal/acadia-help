@@ -1,7 +1,7 @@
 import { getAllDepartments } from "@/lib/dbQueries";
 import CourseEditor from "./CourseEditor";
-import AddDepartment from "./AddDepartment";
-import AddProfessor from "./AddProfessor";
+// import AddDepartment from "./AddDepartment";
+// import AddProfessor from "./AddProfessor";
 
 export default async function Page() {
 

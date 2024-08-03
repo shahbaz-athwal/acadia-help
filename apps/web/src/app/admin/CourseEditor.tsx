@@ -1,8 +1,8 @@
 import { getCoursesByDepartment, getProfessorsByDepartment } from "@/lib/dbQueries";
 import React from "react";
-import EditCourse from "./EditCourse";
+// import EditCourse from "./EditCourse";
 import { unstable_noStore as noStore } from "next/cache";
-import EditProfessor from "./EditProfShadUI";
+import EditProfessor from "./EditProfessor";
 
 
 const CourseEditor = async ({ prefix }: { prefix: string }) => {
