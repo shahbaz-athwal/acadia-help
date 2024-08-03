@@ -5,8 +5,10 @@ import AddProfessor from "./AddProfessor";
 import AddDepartment from "./AddDepartment";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Page() {
+  noStore()
   const departments = await getAllDepartments();
   return (
     <div className="flex justify-center mt-28">

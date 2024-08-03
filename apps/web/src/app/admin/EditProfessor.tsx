@@ -117,7 +117,6 @@ const EditProfessor = ({
           <h3>{professorName}</h3>
         </div>
         <p className="text-md text-gray-400">{professor.bio}</p>
-        <p>Courses:</p>
         <ul className="p-2">
           {selectedCourses.map((course) => (
             <li key={course.id}>

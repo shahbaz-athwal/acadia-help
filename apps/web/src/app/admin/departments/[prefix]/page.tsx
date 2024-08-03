@@ -6,11 +6,9 @@ import EditProfessor from "../../EditProfessor";
 import EditCourse from "../../EditCourse";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { unstable_noStore as noStore } from "next/cache";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 async function Page({ params }: { params: { prefix: string } }) {
-  noStore();
   const courses = await getCoursesByDepartment(params.prefix);
   const professors = await getProfessorsByDepartment(params.prefix);
 

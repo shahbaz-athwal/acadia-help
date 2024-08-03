@@ -86,14 +86,14 @@ const EditCourse = ({
           {course.courseCode} - {course.courseName}
         </p>
         <p className="text-md text-gray-400">{course.description}</p>
-        <p className="font-medium">Professors:</p>
+        <p className="font-medium pt-1">Instructors:</p>
         <div className="grid grid-cols-2 p-2">
           {selectedProfessors.map((professor) => (
-            <div key={professor.id}>{professor.name}</div>
+            <div key={professor.id}>- {professor.name}</div>
           ))}
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <div className="flex justify-end pt-3">
+          <div className="flex justify-end">
             <DialogTrigger asChild>
               <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
             </DialogTrigger>
