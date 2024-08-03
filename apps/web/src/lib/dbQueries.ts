@@ -32,6 +32,19 @@ export async function getCourseById(id: string) {
   return course;
 }
 
+export async function getProfessorById(id: number) {
+  const course = await db.professor.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      courses: true,
+      feedbacks: true,
+    },
+  });
+  return course;
+}
+
 export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {
   const updatedCourse = await db.course.update({
     where: {
