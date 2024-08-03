@@ -11,12 +11,13 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import Link from "next/link";
 interface SearchResults {
   courses: Course[];
   professors: Professor[];
 }
 
-export function CommandDemo() {
+export function SearchBox() {
   const [searchResults, setSearchResults] = useState<SearchResults>({
     courses: [],
     professors: [],
@@ -47,18 +48,20 @@ export function CommandDemo() {
               {searchResults.courses.map((course) => (
                 <CommandItem key={course.id}>
                   <Calendar className="mr-2 h-4 w-4" />
-                  <span>{course.courseName}</span>
-                  <div className="sr-only">{course.description} {course.courseCode}</div>
+                  <span>{course.courseCode} - {course.courseName}</span>
+                  <div className="sr-only">{course.description}</div>
                 </CommandItem>
               ))}
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Professors">
               {searchResults.professors.map((professor) => (
-                <CommandItem key={professor.id}>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>{professor.name}</span>
-                </CommandItem>
+                <Link href={"/admin/professor/" + professor.id}>
+                  <CommandItem key={professor.id}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>{professor.name}</span>
+                  </CommandItem>
+                </Link>
               ))}
             </CommandGroup>
           </>
