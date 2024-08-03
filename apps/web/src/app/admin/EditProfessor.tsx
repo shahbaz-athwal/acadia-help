@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { uploadProfilePicture } from "@/actions/uploadFile";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface ProfessorCardProps extends Professor {
   courses: Course[];
@@ -103,8 +104,19 @@ const EditProfessor = ({
 
   return (
     <div>
-      <div>
-        <h3>{professorName}</h3>
+      <div className="space-y-1">
+        <div className="flex items-center space-x-3">
+          <Avatar className="h-16 w-16">
+            <AvatarImage
+              src={professor.image!}
+              alt={professor.name}
+              className="object-cover"
+            />
+            <AvatarFallback>X</AvatarFallback>
+          </Avatar>
+          <h3>{professorName}</h3>
+        </div>
+        <p className="text-md text-gray-400">{professor.bio}</p>
         <p>Courses:</p>
         <ul className="p-2">
           {selectedCourses.map((course) => (
@@ -114,9 +126,11 @@ const EditProfessor = ({
           ))}
         </ul>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
-          </DialogTrigger>
+          <div className="flex justify-end pt-3">
+            <DialogTrigger asChild>
+              <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
+            </DialogTrigger>
+          </div>
           <DialogContent>
             <DialogTitle>Edit Professor</DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-3">

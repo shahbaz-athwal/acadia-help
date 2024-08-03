@@ -9,7 +9,7 @@ import Link from "next/link";
 export default async function Page() {
   const departments = await getAllDepartments();
   return (
-    <div className="flex justify-center min-h-screen items-center">
+    <div className="flex justify-center mt-28">
       <Tabs defaultValue="editor" className="w-[800px] max-w-full mx-4">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="creator">Creator</TabsTrigger>
