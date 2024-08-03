@@ -99,8 +99,7 @@ const EditCourse = ({
             </DialogTrigger>
           </div>
           <DialogContent>
-            <DialogTitle>Edit Course</DialogTitle>
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
+            <form onSubmit={handleSubmit} className="space-y-2">
               <div>
                 <Label htmlFor="courseCode">Course Code</Label>
                 <Input
@@ -108,7 +107,6 @@ const EditCourse = ({
                   type="text"
                   value={courseCode}
                   onChange={(e) => setCourseCode(e.target.value)}
-                  className="text-black"
                   required
                 />
               </div>
@@ -119,17 +117,15 @@ const EditCourse = ({
                   type="text"
                   value={courseName}
                   onChange={(e) => setCourseName(e.target.value)}
-                  className="text-black"
                   required
                 />
               </div>
               <div>
                 <Label htmlFor="description">Description</Label>
-                <Textarea
+                <Input
                   id="description"
                   value={description ? description : ""}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="text-black"
                   required
                 />
               </div>
@@ -137,7 +133,7 @@ const EditCourse = ({
                 <Label>Professors</Label>
                 <Command className="rounded-lg border shadow-md">
                   <CommandInput placeholder="Search professor..." />
-                  <CommandList>
+                  <CommandList className="max-h-[150px]">
                     <CommandEmpty>No results found.</CommandEmpty>
                     {professors.map((professor) => (
                       <CommandItem key={professor.id}>
@@ -155,7 +151,7 @@ const EditCourse = ({
                   </CommandList>
                 </Command>
               </div>
-              <div className="w-full flex justify-end gap-8 pt-6">
+              <div className="w-full flex justify-end gap-8 pt-2">
                 <DialogClose asChild>
                   <Button variant={"outline"} disabled={isSubmitting}>
                     Cancel

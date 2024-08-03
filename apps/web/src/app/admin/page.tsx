@@ -6,13 +6,15 @@ import AddDepartment from "./AddDepartment";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
+import { CommandDemo } from "./Search";
 
 export default async function Page() {
   noStore()
   const departments = await getAllDepartments();
   return (
-    <div className="flex justify-center mt-28">
-      <Tabs defaultValue="editor" className="w-[800px] max-w-full mx-4">
+    <div className="flex flex-col justify-center items-center mt-28 mx-4">
+      <CommandDemo/>
+      <Tabs defaultValue="editor" className="w-[800px] max-w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="creator">Creator</TabsTrigger>
           <TabsTrigger value="editor">Editor</TabsTrigger>

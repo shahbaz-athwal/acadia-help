@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
 import {
@@ -20,7 +19,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { uploadProfilePicture } from "@/actions/uploadFile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -131,8 +129,7 @@ const EditProfessor = ({
             </DialogTrigger>
           </div>
           <DialogContent>
-            <DialogTitle>Edit Professor</DialogTitle>
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-2">
               <div>
                 <Label htmlFor="professorPicture">Picture</Label>
                 <Input
@@ -143,27 +140,29 @@ const EditProfessor = ({
                   className="file:text-zinc-400"
                 />
               </div>
-              <div>
-                <Label htmlFor="professorName">Name</Label>
-                <Input
-                  id="professorName"
-                  type="text"
-                  value={professorName}
-                  onChange={(e) => setProfessorName(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="department">Department</Label>
-                <Input
-                  id="department"
-                  type="text"
-                  value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                />
+              <div className="flex gap-8">
+                <div>
+                  <Label htmlFor="professorName">Name</Label>
+                  <Input
+                    id="professorName"
+                    type="text"
+                    value={professorName}
+                    onChange={(e) => setProfessorName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="department">Department</Label>
+                  <Input
+                    id="department"
+                    type="text"
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                  />
+                </div>
               </div>
               <div>
                 <Label htmlFor="bio">Bio</Label>
-                <Textarea
+                <Input
                   id="bio"
                   value={bio ? bio : ""}
                   onChange={(e) => setBio(e.target.value)}
@@ -173,7 +172,7 @@ const EditProfessor = ({
                 <Label>Courses</Label>
                 <Command className="rounded-lg border shadow-md">
                   <CommandInput placeholder="Search course..." />
-                  <CommandList>
+                  <CommandList className="max-h-[150px]">
                     <CommandEmpty>No results found.</CommandEmpty>
                     {courses.map((course) => (
                       <CommandItem key={course.id}>
@@ -193,7 +192,7 @@ const EditProfessor = ({
                   </CommandList>
                 </Command>
               </div>
-              <div className="w-full flex justify-end gap-8 pt-6">
+              <div className="w-full flex justify-end gap-8 pt-2">
                 <DialogClose asChild>
                   <Button variant={"outline"} disabled={isSubmitting}>
                     Cancel
