@@ -40,7 +40,7 @@ const AddCourse = () => {
         <DialogTrigger asChild>
           <Button
             onClick={() => setIsDialogOpen(true)}
-            className="w-full"
+            className="w-full max-w-xl"
             variant={"outline"}
           >
             Add Course
