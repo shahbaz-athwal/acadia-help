@@ -1,8 +1,8 @@
 import { getAllDepartments } from "@/lib/dbQueries";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AddCourse from "./AddCourse";
-import AddProfessor from "./AddProfessor";
-import AddDepartment from "./AddDepartment";
+import AddCourse from "./Components/AddCourse";
+import AddProfessor from "./Components/AddProfessor";
+import AddDepartment from "./Components/AddDepartment";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";

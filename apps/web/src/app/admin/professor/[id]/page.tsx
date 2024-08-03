@@ -1,5 +1,5 @@
 import { getCoursesByDepartment, getProfessorById } from "@/lib/dbQueries";
-import EditProfessor from "../../EditProfessor";
+import EditProfessor from "../../Components/EditProfessor";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

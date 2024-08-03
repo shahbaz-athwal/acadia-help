@@ -2,8 +2,8 @@ import {
   getCoursesByDepartment,
   getProfessorsByDepartment,
 } from "@/lib/dbQueries";
-import EditProfessor from "../../EditProfessor";
-import EditCourse from "../../EditCourse";
+import EditProfessor from "../../Components/EditProfessor";
+import EditCourse from "../../Components/EditCourse";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";

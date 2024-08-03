@@ -1,4 +1,4 @@
-import { SearchBox } from "./Search";
+import { SearchBox } from "./Components/Search";
 
 export default function RootLayout({
   children,
