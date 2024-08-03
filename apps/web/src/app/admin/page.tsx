@@ -1,17 +1,16 @@
 import { getAllDepartments } from "@/lib/dbQueries";
-import CourseEditor from "./CourseEditor";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddCourse from "./AddCourse";
 import AddProfessor from "./AddProfessor";
 import AddDepartment from "./AddDepartment";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Link from "next/link";
 
 export default async function Page() {
   const departments = await getAllDepartments();
   return (
     <div className="flex justify-center min-h-screen items-center">
-      <Tabs defaultValue="creator" className="w-[800px] max-w-full mx-4">
+      <Tabs defaultValue="editor" className="w-[800px] max-w-full mx-4">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="creator">Creator</TabsTrigger>
           <TabsTrigger value="editor">Editor</TabsTrigger>
@@ -27,16 +26,17 @@ export default async function Page() {
         </TabsContent>
         <TabsContent value="editor">
           <ScrollArea className="w-full h-[70vh] pt-4">
-            {departments.map((department, i) => {
-              return (
-                <div key={i}>
-                  <h1 className="text-3xl p-2">{department.name}</h1>
-                  <div className="p-4">
-                    <CourseEditor prefix={department.prefix} />
+            <div className="space-y-11">
+              {departments.map((department, i) => {
+                return (
+                  <div key={i}>
+                    <Link href={`/admin/departments/${department.prefix}`}>
+                      <h1 className="text-3xl">{department.name}</h1>
+                    </Link>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </ScrollArea>
         </TabsContent>
       </Tabs>
