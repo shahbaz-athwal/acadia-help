@@ -41,6 +41,8 @@ const EditProfessor = ({
     professor.courses
   );
   const [file, setFile] = useState<File | undefined>(undefined);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCourseToggle = (courseCode: string) => {
     setSelectedCourses((alreadySelected) =>
@@ -59,7 +61,9 @@ const EditProfessor = ({
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -93,6 +97,8 @@ const EditProfessor = ({
         disconnect: disconnectCourses,
       },
     });
+    setIsSubmitting(false);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -107,9 +113,9 @@ const EditProfessor = ({
             </li>
           ))}
         </ul>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button>Edit</Button>
+            <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>Edit Professor</DialogTitle>
@@ -176,9 +182,13 @@ const EditProfessor = ({
               </div>
               <div className="w-full flex justify-end gap-8 pt-6">
                 <DialogClose asChild>
-                  <Button variant={"outline"}>Cancel</Button>
+                  <Button variant={"outline"} disabled={isSubmitting}>
+                    Cancel
+                  </Button>
                 </DialogClose>
-                <Button type="submit">Save</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  Save
+                </Button>
               </div>
             </form>
           </DialogContent>
