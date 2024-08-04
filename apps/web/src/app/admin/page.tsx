@@ -8,11 +8,11 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Page() {
-  noStore()
+  noStore();
   const departments = await getAllDepartments();
   return (
     <div className="flex flex-col justify-center items-center mt-28 mx-4">
-      <Tabs defaultValue="editor" className="w-[800px] max-w-full">
+      <Tabs defaultValue="creator" className="w-[800px] max-w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="creator">Creator</TabsTrigger>
           <TabsTrigger value="editor">Editor</TabsTrigger>
@@ -28,12 +28,14 @@ export default async function Page() {
         </TabsContent>
         <TabsContent value="editor">
           <ScrollArea className="w-full h-[70vh] pt-4">
-            <div className="space-y-11">
+            <div className="space-y-4">
               {departments.map((department, i) => {
                 return (
                   <div key={i}>
-                    <Link href={`/admin/departments/${department.prefix}`}>
-                      <h1 className="text-3xl">{department.name}</h1>
+                    <Link href={`/admin/department/${department.prefix}`}>
+                      <div className="bg-zinc-800 p-2 rounded-lg hover:bg-zinc-700">
+                        {department.name}
+                      </div>
                     </Link>
                   </div>
                 );

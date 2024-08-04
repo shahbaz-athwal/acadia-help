@@ -7,7 +7,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <SearchBox />
+      <div className="mx-4">
+        <SearchBox />
+      </div>
       {children}
     </>
   );
