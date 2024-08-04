@@ -10,7 +10,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -28,7 +27,7 @@ export function SearchBox() {
 
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
-  const inputRef = useRef<HTMLInputElement | null>(null) 
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -60,25 +59,34 @@ export function SearchBox() {
         value={inputValue}
         onValueChange={(e) => setInputValue(e)}
         ref={inputRef}
-        />
+      />
       <CommandList>
         {inputValue.trim() ? (
           <>
             <CommandGroup heading="Courses">
               {searchResults.courses.map((course) => (
-                <CommandItem key={course.id}>
-                  <Clipboard className="mr-2 h-4 w-4" />
-                  <span>
-                    {course.courseCode} - {course.courseName}
-                  </span>
-                  <div className="sr-only">{course.description}</div>
-                </CommandItem>
+                <Link href={"/admin/course/" + course.id} key={course.id}>
+                  <CommandItem
+                    onSelect={() => {
+                      router.push(`/admin/course/${course.id}`);
+                    }}
+                  >
+                    <Clipboard className="mr-2 h-4 w-4" />
+                    <span>
+                      {course.courseCode} - {course.courseName}
+                    </span>
+                    <div className="sr-only">{course.description}</div>
+                  </CommandItem>
+                </Link>
               ))}
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Professors">
               {searchResults.professors.map((professor) => (
-                <Link href={"/admin/professor/" + professor.id} key={professor.id}>
+                <Link
+                  href={"/admin/professor/" + professor.id}
+                  key={professor.id}
+                >
                   <CommandItem
                     onSelect={() => {
                       router.push(`/admin/professor/${professor.id}`);

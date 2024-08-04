@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 interface CourseCardProps extends Course {
   professors: Professor[];
@@ -97,6 +98,7 @@ const EditCourse = ({
             </DialogTrigger>
           </div>
           <DialogContent>
+            <DialogTitle className="hidden">Edit Course</DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-2">
               <div>
                 <Label htmlFor="courseCode">Course Code</Label>

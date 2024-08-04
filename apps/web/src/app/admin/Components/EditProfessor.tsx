@@ -8,6 +8,7 @@ import {
   DialogTrigger,
   DialogContent,
   DialogClose,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
   Command,
@@ -129,6 +130,7 @@ const EditProfessor = ({
             </DialogTrigger>
           </div>
           <DialogContent>
+          <DialogTitle className="hidden">Edit Professor</DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-2">
               <div>
                 <Label htmlFor="professorPicture">Picture</Label>
