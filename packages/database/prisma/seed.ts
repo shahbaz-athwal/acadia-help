@@ -37,6 +37,7 @@ async function main() {
   const darcy = await prisma.professor.create({
     data: {
       name: "Darcy Benoit",
+      image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722666748/Professors/uqwyqkacj3h1vqbz59bq.jpg",
       department: {
         connect: { prefix: "COMP" },
       },
@@ -46,6 +47,7 @@ async function main() {
   const greg = await prisma.professor.create({
     data: {
       name: "Greg Lee",
+      image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722667884/Professors/iluheukc0jwyhpdfsota.png",
       department: {
         connect: { prefix: "COMP" },
       },
@@ -55,6 +57,7 @@ async function main() {
   const ian = await prisma.professor.create({
     data: {
       name: "Ian Beaton",
+      image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722668848/Professors/wondtxqjmdoahigj9sut.jpg",
       department: {
         connect: { prefix: "MATH" },
       },
@@ -64,8 +67,19 @@ async function main() {
   const caro = await prisma.professor.create({
     data: {
       name: "Caroline Coachran",
+      image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722669641/Professors/jlztpcnfchpi2u2jr4w4.jpg",
       department: {
         connect: { prefix: "MATH"},
+      },
+    },
+  });
+
+  const elhadi = await prisma.professor.create({
+    data: {
+      name: "Caroline Coachran",
+      image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722682712/Professors/n3qva4wcd5b0efm8pa2y.jpg",
+      department: {
+        connect: { prefix: "COMP"},
       },
     },
   });
