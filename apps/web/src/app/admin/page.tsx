@@ -11,7 +11,7 @@ export default async function Page() {
   noStore();
   const departments = await getAllDepartments();
   return (
-    <div className="flex flex-col justify-center items-center mt-28 mx-4">
+    <div className="flex flex-col justify-center items-center mt-24 mx-4">
       <Tabs defaultValue="creator" className="w-[800px] max-w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="creator">Creator</TabsTrigger>

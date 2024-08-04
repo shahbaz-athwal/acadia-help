@@ -13,7 +13,7 @@ async function Page({ params }: { params: { prefix: string } }) {
   const professors = await getProfessorsByDepartment(params.prefix);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 max-w-5xl mx-auto">
       <Link href="/admin">
         <Button variant="outline" className="mb-4">
           Back
