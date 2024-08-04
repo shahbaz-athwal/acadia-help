@@ -1,8 +1,8 @@
 import { Course } from "@repo/db";
 import { unstable_noStore } from "next/cache";
-import { getAllCourses, getCourseById } from "../../lib/dbQueries";
-import { getNotionPage } from "../../lib/notion-client-utils";
-import RenderNotion from "../../components/RenderNotion";
+import { getAllCourses, getCourseById } from "../../../lib/dbQueries";
+import { getNotionPage } from "../../../lib/notion-client-utils";
+import RenderNotion from "../../../components/RenderNotion";
 
 async function Home() {
   // const res = await createNotionPage("Test")
