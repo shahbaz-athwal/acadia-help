@@ -12,7 +12,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SearchResults {
   courses: Course[];
@@ -27,6 +27,8 @@ export function SearchBox() {
 
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
+  const path = usePathname();
+  const redirectPath = path.startsWith("/admin") ? "/admin" : "";
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -66,10 +68,13 @@ export function SearchBox() {
           <>
             <CommandGroup heading="Courses">
               {searchResults.courses.map((course) => (
-                <Link href={"/admin/course/" + course.id} key={course.id}>
+                <Link
+                  href={`${redirectPath}/course/${course.id}`}
+                  key={course.id}
+                >
                   <CommandItem
                     onSelect={() => {
-                      router.push(`/admin/course/${course.id}`);
+                      router.push(`${redirectPath}/course/${course.id}`);
                     }}
                   >
                     <Clipboard className="mr-2 h-4 w-4" />
@@ -85,12 +90,12 @@ export function SearchBox() {
             <CommandGroup heading="Professors">
               {searchResults.professors.map((professor) => (
                 <Link
-                  href={"/admin/professor/" + professor.id}
+                  href={`${redirectPath}/professor/${professor.id}`}
                   key={professor.id}
                 >
                   <CommandItem
                     onSelect={() => {
-                      router.push(`/admin/professor/${professor.id}`);
+                      router.push(`${redirectPath}/professor/${professor.id}`);
                     }}
                   >
                     <User className="mr-2 h-4 w-4" />
