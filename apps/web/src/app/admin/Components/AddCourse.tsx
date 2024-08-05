@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,15 +36,13 @@ const AddCourse = () => {
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button
-            onClick={() => setIsDialogOpen(true)}
-            className="w-full max-w-xl"
-            variant={"outline"}
-          >
-            Add Course
-          </Button>
-        </DialogTrigger>
+        <Button
+          onClick={() => setIsDialogOpen(true)}
+          className="w-full max-w-xl"
+          variant={"outline"}
+        >
+          Add Course
+        </Button>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add Course</DialogTitle>

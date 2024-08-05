@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogClose,
   DialogTitle,
@@ -125,12 +124,10 @@ const EditProfessor = ({
         </ul>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <div className="flex justify-end pt-3">
-            <DialogTrigger asChild>
-              <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
-            </DialogTrigger>
+            <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
           </div>
           <DialogContent>
-          <DialogTitle className="hidden">Edit Professor</DialogTitle>
+            <DialogTitle className="hidden">Edit Professor</DialogTitle>
             <form onSubmit={handleSubmit} className="space-y-2">
               <div>
                 <Label htmlFor="professorPicture">Picture</Label>

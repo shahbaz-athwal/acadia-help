@@ -3,12 +3,7 @@ import { updateCourse } from "@/lib/dbQueries";
 import { Professor, Course } from "@prisma/client";
 import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import {
   Command,
   CommandEmpty,
@@ -93,9 +88,7 @@ const EditCourse = ({
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <div className="flex justify-end">
-            <DialogTrigger asChild>
-              <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
-            </DialogTrigger>
+            <Button onClick={() => setIsDialogOpen(true)}>Edit</Button>
           </div>
           <DialogContent>
             <DialogTitle className="hidden">Edit Course</DialogTitle>

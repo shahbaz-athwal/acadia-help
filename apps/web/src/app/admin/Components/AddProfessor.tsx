@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,15 +45,13 @@ const AddProfessor = ({ departments }: { departments: Department[] }) => {
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button
-            onClick={() => setIsDialogOpen(true)}
-            className="w-full max-w-xl"
-            variant={"outline"}
-          >
-            Add Professor
-          </Button>
-        </DialogTrigger>
+        <Button
+          onClick={() => setIsDialogOpen(true)}
+          className="w-full max-w-xl"
+          variant={"outline"}
+        >
+          Add Professor
+        </Button>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add Professor</DialogTitle>
