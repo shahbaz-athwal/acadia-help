@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/Navbar";
+import { Appbar } from "@/components/Appbar";
 
 export default function RootLayout({
   children,
@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      {/* <Navbar /> */}
+      <Appbar />
       {children}
     </>
   );

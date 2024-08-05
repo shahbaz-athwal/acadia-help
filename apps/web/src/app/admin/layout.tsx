@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <div className="mx-4 mt-8">
+      <div className="mx-4 mt-8 flex justify-center">
         <SearchBox />
       </div>
       {children}

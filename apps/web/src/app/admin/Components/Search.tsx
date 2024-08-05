@@ -53,14 +53,15 @@ export function SearchBox() {
   }, []);
 
   return (
-    <Command className="rounded-lg border shadow-md max-w-2xl mx-auto mb-8">
+    <Command className="rounded-none sm:rounded-lg border shadow-md max-w-2xl mx-auto">
       <CommandInput
         placeholder="search..."
         value={inputValue}
         onValueChange={(e) => setInputValue(e)}
         ref={inputRef}
+        autoFocus
       />
-      <CommandList>
+      <CommandList className="h-fit overflow-y-auto">
         {inputValue.trim() ? (
           <>
             <CommandGroup heading="Courses">
