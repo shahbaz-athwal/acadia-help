@@ -40,7 +40,7 @@ export const SearchClient = () => {
           </div>
         </Button>
         <DialogContent className="p-0 max-w-2xl border-none top-[30vh] h-[250px]">
-          <SearchBox />
+          <SearchBox setDialogOpen={setDialogOpen} />
         </DialogContent>
       </Dialog>
     </>

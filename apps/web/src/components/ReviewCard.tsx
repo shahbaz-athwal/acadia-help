@@ -52,7 +52,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ feedback }) => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-1 md:gap-3 mb-4 md:items-center">
-          <div className="text-md text-zinc-300">Grade: {feedback.grade}</div>
+          <div className="text-md text-zinc-300 mr-4">Grade: {feedback.grade}</div>
           <div className="text-sm text-zinc-500">
             Textbook Required: {feedback.bookRequired ? "Yes" : "No"}
           </div>

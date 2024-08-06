@@ -19,7 +19,11 @@ interface SearchResults {
   professors: Professor[];
 }
 
-export function SearchBox() {
+interface SearchProps {
+  setDialogOpen?: (open: boolean) => void;
+}
+
+export function SearchBox({ setDialogOpen }: SearchProps) {
   const [searchResults, setSearchResults] = useState<SearchResults>({
     courses: [],
     professors: [],
@@ -57,7 +61,7 @@ export function SearchBox() {
   return (
     <Command className="rounded-none sm:rounded-lg border shadow-md max-w-2xl mx-auto">
       <CommandInput
-        placeholder="search..."
+        placeholder="Search any course or professor"
         value={inputValue}
         onValueChange={(e) => setInputValue(e)}
         ref={inputRef}
@@ -75,6 +79,7 @@ export function SearchBox() {
                   <CommandItem
                     onSelect={() => {
                       router.push(`${redirectPath}/course/${course.id}`);
+                      setDialogOpen && setDialogOpen(false);
                     }}
                   >
                     <Clipboard className="mr-2 h-4 w-4" />
@@ -96,6 +101,7 @@ export function SearchBox() {
                   <CommandItem
                     onSelect={() => {
                       router.push(`${redirectPath}/professor/${professor.id}`);
+                      setDialogOpen && setDialogOpen(false);
                     }}
                   >
                     <User className="mr-2 h-4 w-4" />
