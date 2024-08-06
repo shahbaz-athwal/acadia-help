@@ -1,5 +1,5 @@
 "use client";
-import { SearchIcon, X } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { useEffect, useState } from "react";
