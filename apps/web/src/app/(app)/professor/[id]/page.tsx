@@ -1,3 +1,4 @@
+import ReviewCard from "@/components/ReviewCard";
 import { getProfessorById } from "@/lib/dbQueries";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,30 +66,7 @@ async function Page({ params }: { params: { id: string } }) {
         <h2 className="text-lg text-center font-semibold mb-6">{ratingCount} Student Ratings</h2>
         <ul className="space-y-4">
           {professor!.feedbacks.map((feedback, index) => (
-            <li key={index} className="flex border rounded-lg p-4">
-            <div className="flex-shrink-0 text-center mr-4">
-              <div className="bg-green-200 rounded-md p-2 mb-2">
-                <span className="text-xl font-bold text-green-800">{feedback.quality}</span>
-                <p className="text-sm font-semibold text-gray-700">QUALITY</p>
-              </div>
-              <div className="bg-gray-200 rounded-md p-2">
-                <span className="text-xl font-bold text-gray-800">{feedback.difficulty}</span>
-                <p className="text-sm font-semibold text-gray-700">DIFFICULTY</p>
-              </div>
-            </div>
-            <div className="flex-grow">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center">
-                  <span className="font-bold">{feedback.course.courseCode} - {feedback.course.courseName}</span>
-                </div>
-                <span className="text-sm font-semibold text-gray-500">{new Date(feedback.createdAt).toLocaleDateString()}</span>
-              </div>
-              <div className="text-sm mb-2">
-                <span className="font-semibold ml-4">Textbook: </span>Yes{' '}
-              </div>
-              <p className="text-sm">{feedback.message}</p>
-            </div>
-          </li>
+            <ReviewCard key={index} feedback={feedback} />
           ))}
         </ul>
       </div>
