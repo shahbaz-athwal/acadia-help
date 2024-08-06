@@ -39,7 +39,12 @@ export async function getProfessorById(id: number) {
     },
     include: {
       courses: true,
-      feedbacks: true,
+      feedbacks: {
+        include: {
+          course: true,
+        },
+      },
+      department: true,
     },
   });
   return course;
