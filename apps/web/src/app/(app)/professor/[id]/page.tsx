@@ -1,4 +1,5 @@
 import ReviewCard from "@/components/ReviewCard";
+import { ReviewChart } from "@/components/ReviewChart";
 import { getProfessorById } from "@/lib/dbQueries";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,10 +19,10 @@ async function Page({ params }: { params: { id: string } }) {
     ratingCount;
 
   return (
-    <div className="max-w-3xl mx-auto p-3">
+    <div className="max-w-3xl mx-auto p-3 mt-10">
       <div>
         <div className="flex">
-          <div className="text-7xl">{avgQuality}</div>
+          <div className="text-7xl">{avgQuality.toFixed(1)}</div>
           <div className="pt-1 pl-2">/5</div>
         </div>
         Overall Quality Based on {ratingCount} ratings
@@ -48,7 +49,7 @@ async function Page({ params }: { params: { id: string } }) {
       <div className="flex items-center">
         <div className="mt-2 border-r pr-6 mr-6 text-center">
           <span className="mx-auto font-bold text-xl">
-            {avgDifficulty.toFixed(2)}
+            {avgDifficulty.toFixed(1)}
           </span>
           <h2 className="text-sm mb-2 text-zinc-400">Level of Difficulty</h2>
         </div>
@@ -62,8 +63,13 @@ async function Page({ params }: { params: { id: string } }) {
           </span>
         </Link>
       </div>
+      
+      <ReviewChart />
+
       <div className="pt-12">
-        <h2 className="text-lg text-center font-semibold mb-6">{ratingCount} Student Ratings</h2>
+        <h2 className="text-lg text-center font-semibold mb-6">
+          {ratingCount} Student Ratings
+        </h2>
         <ul className="space-y-4">
           {professor!.feedbacks.map((feedback, index) => (
             <ReviewCard key={index} feedback={feedback} />
