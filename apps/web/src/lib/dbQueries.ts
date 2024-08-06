@@ -33,7 +33,7 @@ export async function getCourseById(id: string) {
 }
 
 export async function getProfessorById(id: number) {
-  const course = await db.professor.findUnique({
+  const professor = await db.professor.findUnique({
     where: {
       id,
     },
@@ -47,7 +47,7 @@ export async function getProfessorById(id: number) {
       department: true,
     },
   });
-  return course;
+  return professor;
 }
 
 export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {

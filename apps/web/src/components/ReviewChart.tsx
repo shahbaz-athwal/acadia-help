@@ -16,13 +16,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { level: "Awesome", reviews: 243, fill: "var(--color-awesome)" },
-  { level: "Good", reviews: 186, fill: "var(--color-good)" },
-  { level: "OK", reviews: 237, fill: "var(--color-ok)" },
-  { level: "Bad", reviews: 73, fill: "var(--color-bad)" },
-  { level: "Awful", reviews: 209, fill: "var(--color-awful)" },
-];
 
 const chartConfig = {
   reviews: {
@@ -50,14 +43,26 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ReviewChart() {
+export function ReviewChart({
+  ratingCount,
+}: {
+  ratingCount: Record<number, number>;
+}) {
+  const chartData = [
+    { level: "Awesome", reviews: ratingCount[5], fill: "var(--color-awesome)" },
+    { level: "Good", reviews: ratingCount[4], fill: "var(--color-good)" },
+    { level: "OK", reviews: ratingCount[3], fill: "var(--color-ok)" },
+    { level: "Bad", reviews: ratingCount[2], fill: "var(--color-bad)" },
+    { level: "Awful", reviews: ratingCount[1], fill: "var(--color-awful)" },
+  ];
+
   return (
-    <Card className="w-fit mt-12 mx-auto">
+    <Card className="w-fit max-w-full mt-12 mx-auto">
       <CardHeader>
         <CardTitle>Rating Distribution</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="w-[500px]" config={chartConfig}>
+        <ChartContainer className="w-[400px] sm:w-[500px]" config={chartConfig}>
           <BarChart
             accessibilityLayer
             data={chartData}
@@ -91,15 +96,15 @@ export function ReviewChart() {
                 dataKey="level"
                 position="insideLeft"
                 offset={8}
-                className="fill-[--color-label]"
-                fontSize={12}
+                className="fill-white"
+                fontSize={14}
               />
               <LabelList
                 dataKey="reviews"
-                position="right"
+                position="insideRight"
                 offset={8}
                 className="fill-foreground"
-                fontSize={12}
+                fontSize={14}
               />
             </Bar>
           </BarChart>

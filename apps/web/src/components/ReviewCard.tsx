@@ -14,11 +14,11 @@ type ReviewCardProps = {
 const ReviewCard: React.FC<ReviewCardProps> = ({ feedback }) => {
   const getRatingClass = (rating: number) => {
     if (rating <= 2) {
-      return "bg-red-200 text-red-800";
+      return "bg-red-400 text-red-800";
     } else if (rating === 3) {
-      return "bg-yellow-200 text-yellow-800";
+      return "bg-yellow-300 text-yellow-800";
     } else {
-      return "bg-green-300 text-green-800";
+      return "bg-green-400 text-green-800";
     }
   };
 

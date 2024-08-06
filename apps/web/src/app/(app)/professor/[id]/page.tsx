@@ -9,13 +9,26 @@ async function Page({ params }: { params: { id: string } }) {
   const professor = await getProfessorById(Number(params.id));
   const ratingCount = professor!.feedbacks.length;
 
+  function getRatingDistribution() {
+    const ratingCounts: Record<number, number> = {
+      5: 0,
+      4: 0,
+      3: 0,
+      2: 0,
+      1: 0,
+    };
+
+    professor?.feedbacks.forEach((feedback) => {
+      ratingCounts[feedback.quality]++;
+    });
+    return ratingCounts;
+  }
+  
   const avgDifficulty =
-    professor!.feedbacks.reduce(
-      (acc, feedback) => acc + feedback.difficulty,
-      0
-    ) / ratingCount;
+    professor!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
+    ratingCount;
   const avgQuality =
-    professor!.feedbacks.reduce((acc, feedback) => acc + feedback.quality, 0) /
+    professor!.feedbacks.reduce((acc, { quality }) => acc + quality, 0) /
     ratingCount;
 
   return (
@@ -63,8 +76,8 @@ async function Page({ params }: { params: { id: string } }) {
           </span>
         </Link>
       </div>
-      
-      <ReviewChart />
+
+      <ReviewChart ratingCount={getRatingDistribution()} />
 
       <div className="pt-12">
         <h2 className="text-lg text-center font-semibold mb-6">
