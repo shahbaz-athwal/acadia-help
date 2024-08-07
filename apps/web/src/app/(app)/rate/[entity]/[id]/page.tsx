@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { grades } from "@/lib/grades";
+import { grades } from "@/lib/constants";
 import RatingSelector from "@/components/RatingSelector";
 
 export default function Page() {

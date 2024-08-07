@@ -16,58 +16,58 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-const chartConfig = {
-  reviews: {
-    label: "Reviews",
-  },
-  awesome: {
-    label: "Awesome",
-    color: "rgb(9,134,55)",
-  },
-  good: {
-    label: "Good",
-    color: "rgb(38,98,217)",
-  },
-  ok: {
-    label: "OK",
-    color: "rgb(232,140,48)",
-  },
-  bad: {
-    label: "Bad",
-    color: "rgb(232,100,150)",
-  },
-  awful: {
-    label: "Awful",
-    color: "rgb(226,29,72)",
-  },
-} satisfies ChartConfig;
+import { chartLabels } from "@/lib/constants";
 
 export function ReviewChart({
   ratingCount,
+  type,
 }: {
   ratingCount: Record<number, number>;
+  type: "quality" | "difficulty";
 }) {
+  const labels = chartLabels(type);
+  const chartConfig = {
+    reviews: {
+      label: "Reviews",
+    },
+    awesome: {
+      label: labels[0],
+      color: "rgb(9,134,55)",
+    },
+    good: {
+      label: labels[1],
+      color: "rgb(38,98,217)",
+    },
+    ok: {
+      label: labels[2],
+      color: "rgb(232,140,48)",
+    },
+    bad: {
+      label: labels[3],
+      color: "rgb(232,100,150)",
+    },
+    awful: {
+      label: labels[4],
+      color: "rgb(226,29,72)",
+    },
+  } satisfies ChartConfig;
+
   const chartData = [
-    { level: "Awesome", reviews: ratingCount[5], fill: "var(--color-awesome)" },
-    { level: "Good", reviews: ratingCount[4], fill: "var(--color-good)" },
-    { level: "OK", reviews: ratingCount[3], fill: "var(--color-ok)" },
-    { level: "Bad", reviews: ratingCount[2], fill: "var(--color-bad)" },
-    { level: "Awful", reviews: ratingCount[1], fill: "var(--color-awful)" },
+    { level: labels[0], reviews: ratingCount[5], fill: "var(--color-awesome)" },
+    { level: labels[1], reviews: ratingCount[4], fill: "var(--color-good)" },
+    { level: labels[2], reviews: ratingCount[3], fill: "var(--color-ok)" },
+    { level: labels[3], reviews: ratingCount[2], fill: "var(--color-bad)" },
+    { level: labels[4], reviews: ratingCount[1], fill: "var(--color-awful)" },
   ];
 
   return (
     <Card className="w-fit max-w-full mt-12 mx-auto">
       <CardHeader>
-        <CardTitle>Rating Distribution</CardTitle>
+        <CardTitle>{type === "difficulty"? "Difficulty" : "Quality"}  Distribution</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer className="w-[400px] sm:w-[500px]" config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            layout="vertical"
-          >
+          <BarChart accessibilityLayer data={chartData} layout="vertical">
             <CartesianGrid horizontal={false} />
             <YAxis
               dataKey="level"

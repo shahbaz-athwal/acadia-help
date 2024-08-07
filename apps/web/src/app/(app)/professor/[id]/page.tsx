@@ -58,7 +58,7 @@ async function Page({ params }: { params: { id: string } }) {
         </Link>
       </div>
 
-      <ReviewChart ratingCount={ratingDistribution} />
+      <ReviewChart ratingCount={ratingDistribution} type="quality" />
 
       <div className="pt-12">
         <h2 className="text-lg text-center font-semibold mb-6">

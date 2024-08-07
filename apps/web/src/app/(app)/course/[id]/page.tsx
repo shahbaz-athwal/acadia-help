@@ -38,7 +38,7 @@ async function Page({ params }: { params: { id: string } }) {
           </span>
         </Link>
       </div>
-      <ReviewChart ratingCount={ratingDistribution} />
+      <ReviewChart ratingCount={ratingDistribution} type="difficulty" />
       <div className="pt-12">
         <h2 className="text-lg text-center font-semibold mb-6">
           {ratingCount} Student Ratings

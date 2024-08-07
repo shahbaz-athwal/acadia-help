@@ -1,5 +1,5 @@
 "use server";
-import { Prisma } from ".prisma/client";
+import { Prisma, Feedback } from ".prisma/client";
 import db from "@repo/db/client";
 import { createNotionPageInDatabase } from "./notion-hq";
 
@@ -132,7 +132,7 @@ export async function createDepartment(data: Prisma.DepartmentCreateInput) {
 export async function getDetailedProfessorById(id: string) {
   const professor = await getProfessorById(Number(id));
   const ratingCount = professor!.feedbacks.length;
-  const ratingDistribution = await getRatingDistribution(professor);
+  const ratingDistribution = await getRatingDistribution(professor, "quality");
 
   const avgDifficulty = (
     professor!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
@@ -156,20 +156,25 @@ export async function getDetailedProfessorById(id: string) {
 export async function getDetailedCourseById(id: string) {
   const course = await getCourseById(id);
   const ratingCount = course!.feedbacks.length;
-  const ratingDistribution = await getRatingDistribution(course);
+  const ratingDistribution = await getRatingDistribution(course, "difficulty");
 
-  const avgDifficulty =
-    (course!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
-    ratingCount).toFixed(1);
+  const avgDifficulty = (
+    course!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
+    ratingCount
+  ).toFixed(1);
 
-  const avgQuality =
-    (course!.feedbacks.reduce((acc, { quality }) => acc + quality, 0) /
-    ratingCount).toFixed(1);
+  const avgQuality = (
+    course!.feedbacks.reduce((acc, { quality }) => acc + quality, 0) /
+    ratingCount
+  ).toFixed(1);
 
   return { course, ratingCount, ratingDistribution, avgDifficulty, avgQuality };
 }
 
-export async function getRatingDistribution(entry: any) {
+export async function getRatingDistribution(
+  entity: any,
+  type: "quality" | "difficulty"
+) {
   const ratingCounts: Record<number, number> = {
     5: 0,
     4: 0,
@@ -178,8 +183,15 @@ export async function getRatingDistribution(entry: any) {
     1: 0,
   };
 
-  entry.feedbacks!.forEach((feedback: any) => {
-    ratingCounts[feedback.quality]++;
-  });
-  return ratingCounts;
+  if (type === "quality") {
+    entity.feedbacks.forEach((feedback: Feedback) => {
+      ratingCounts[feedback.quality]!++;
+    });
+    return ratingCounts;
+  } else {
+    entity.feedbacks.forEach((feedback: Feedback) => {
+      ratingCounts[feedback.difficulty]!++;
+    });
+    return ratingCounts;
+  }
 }
