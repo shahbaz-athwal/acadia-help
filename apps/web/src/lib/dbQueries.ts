@@ -26,7 +26,11 @@ export async function getCourseById(id: string) {
     },
     include: {
       professors: true,
-      feedbacks: true,
+      feedbacks: {
+        include: {
+          professor: true,
+        },
+      },
     },
   });
   return course;
@@ -100,7 +104,11 @@ export async function getProfessorsByDepartment(prefix: string) {
       departmentPrefix: prefix,
     },
     include: {
-      courses: true,
+      courses: {
+        include: {
+          feedbacks: true,
+        },
+      },
     },
   });
 
@@ -118,4 +126,60 @@ export async function getAllProfessors() {
 
 export async function createDepartment(data: Prisma.DepartmentCreateInput) {
   return await db.department.create({ data });
+}
+
+//Master Function
+export async function getDetailedProfessorById(id: string) {
+  const professor = await getProfessorById(Number(id));
+  const ratingCount = professor!.feedbacks.length;
+  const ratingDistribution = await getRatingDistribution(professor);
+
+  const avgDifficulty = (
+    professor!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
+    ratingCount
+  ).toFixed(1);
+
+  const avgQuality = (
+    professor!.feedbacks.reduce((acc, { quality }) => acc + quality, 0) /
+    ratingCount
+  ).toFixed(1);
+
+  return {
+    professor,
+    ratingCount,
+    ratingDistribution,
+    avgDifficulty,
+    avgQuality,
+  };
+}
+
+export async function getDetailedCourseById(id: string) {
+  const course = await getCourseById(id);
+  const ratingCount = course!.feedbacks.length;
+  const ratingDistribution = await getRatingDistribution(course);
+
+  const avgDifficulty =
+    (course!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
+    ratingCount).toFixed(1);
+
+  const avgQuality =
+    (course!.feedbacks.reduce((acc, { quality }) => acc + quality, 0) /
+    ratingCount).toFixed(1);
+
+  return { course, ratingCount, ratingDistribution, avgDifficulty, avgQuality };
+}
+
+export async function getRatingDistribution(entry: any) {
+  const ratingCounts: Record<number, number> = {
+    5: 0,
+    4: 0,
+    3: 0,
+    2: 0,
+    1: 0,
+  };
+
+  entry.feedbacks!.forEach((feedback: any) => {
+    ratingCounts[feedback.quality]++;
+  });
+  return ratingCounts;
 }
