@@ -1,7 +1,7 @@
 "use client";
 
 import { reviewSchema } from "@/lib/reviewSchema";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +27,8 @@ import {
 import { grades } from "@/lib/grades";
 import RatingSelector from "@/components/RatingSelector";
 
-export function Page({ params }: { params: { entity: string; id: string } }) {
+export default function Page() {
+  const params = useParams();
   if (params.entity !== "course" && params.entity !== "professor") {
     notFound();
   }
@@ -243,5 +244,3 @@ export function Page({ params }: { params: { entity: string; id: string } }) {
     </div>
   );
 }
-
-export default Page;
