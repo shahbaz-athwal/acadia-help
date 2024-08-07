@@ -13,15 +13,13 @@ model User {
   isVerified Boolean    @default(false)
   otp        String?
   otpExpiry  DateTime?
-  feedbacks  Feedback[]
-  // courseFeedbacks    CourseFeedback[]
-  // professorFeedbacks ProfessorFeedback[]
+  // feedbacks  Feedback[]
 }
 
 model Feedback {
   id             String    @id @default(uuid())
-  userId         Int?
-  user           User?     @relation(fields: [userId], references: [id])
+  // userId         Int?
+  // user           User?     @relation(fields: [userId], references: [id])
   message        String
   grade          String
   wouldTakeAgain Boolean?
@@ -36,33 +34,6 @@ model Feedback {
   createdAt      DateTime  @default(now())
 }
 
-// model CourseFeedback {
-//   id            String   @id @default(uuid())
-//   userId        Int
-//   user          User     @relation(fields: [userId], references: [id])
-//   professorName String
-//   courseCode    String
-//   course        Course   @relation(fields: [courseCode], references: [courseCode])
-//   message       String
-//   grade         String?
-//   rating        Int
-//   createdAt     DateTime @default(now())
-// }
-
-// model ProfessorFeedback {
-//   id             String    @id @default(uuid())
-//   userId         Int
-//   user           User      @relation(fields: [userId], references: [id])
-//   courseCode     String
-//   professorId    Int
-//   professor      Professor @relation(fields: [professorId], references: [id])
-//   message        String
-//   grade          String?
-//   wouldTakeAgain Boolean?
-//   rating         Int
-//   createdAt      DateTime  @default(now())
-// }
-
 model Professor {
   id               Int        @id @default(autoincrement())
   name             String
@@ -72,7 +43,6 @@ model Professor {
   bio              String?
   courses          Course[]
   feedbacks        Feedback[]
-  // feedbacks    ProfessorFeedback[]
 }
 
 model Course {
@@ -86,7 +56,6 @@ model Course {
   department       Department  @relation(fields: [departmentPrefix], references: [prefix])
   professors       Professor[]
   feedbacks        Feedback[]
-  // feedbacks        CourseFeedback[]
 }
 
 model Department {
