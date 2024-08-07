@@ -48,7 +48,7 @@ async function Page({ params }: { params: { id: string } }) {
           <h2 className="text-sm mb-2 text-zinc-400">Level of Difficulty</h2>
         </div>
         <Link
-          href={`/professor/rate/${professor!.id}`}
+          href={`/rate/professor/${professor!.id}`}
           className="group bg-zinc-50 mb-2 hover:bg-zinc-200 transition-colors inline-block mt-4 font-mono text-xs sm:text-sm font-semibold rounded-full px-8 py-3 text-black"
         >
           Rate{" "}
