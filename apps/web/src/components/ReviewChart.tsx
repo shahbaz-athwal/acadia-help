@@ -67,9 +67,6 @@ export function ReviewChart({
             accessibilityLayer
             data={chartData}
             layout="vertical"
-            margin={{
-              right: 16,
-            }}
           >
             <CartesianGrid horizontal={false} />
             <YAxis
