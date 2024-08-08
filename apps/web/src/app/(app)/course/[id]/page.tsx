@@ -1,14 +1,18 @@
+import RenderNotion from "@/components/RenderNotion";
 import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { getDetailedCourseById } from "@/lib/dbQueries";
+import { getNotionPage } from "@/lib/notion-client-utils";
 import Link from "next/link";
 
 async function Page({ params }: { params: { id: string } }) {
   const { course, avgDifficulty, avgQuality, ratingCount, ratingDistribution } =
     await getDetailedCourseById(params.id);
+  const docId = await getNotionPage(course?.docId!);
 
   return (
     <div className="max-w-3xl mx-auto p-3 mt-10">
+      <RenderNotion recordMap={docId} />
       <div>
         <div className="flex">
           <div className="text-7xl">{avgQuality}</div>
@@ -32,7 +36,7 @@ async function Page({ params }: { params: { id: string } }) {
           href={`/rate/course/${course!.id}`}
           className="group bg-zinc-50 mb-2 hover:bg-zinc-200 transition-colors inline-block mt-4 font-mono text-xs sm:text-sm font-semibold rounded-full px-8 py-3 text-black"
         >
-          Rate{" "}
+          Rate This Course{" "}
           <span className="inline-block group-hover:translate-x-2 transition-transform">
             {">"}
           </span>

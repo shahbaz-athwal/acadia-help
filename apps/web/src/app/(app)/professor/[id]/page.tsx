@@ -51,7 +51,7 @@ async function Page({ params }: { params: { id: string } }) {
           href={`/rate/professor/${professor!.id}`}
           className="group bg-zinc-50 mb-2 hover:bg-zinc-200 transition-colors inline-block mt-4 font-mono text-xs sm:text-sm font-semibold rounded-full px-8 py-3 text-black"
         >
-          Rate{" "}
+          Rate This Professor{" "}
           <span className="inline-block group-hover:translate-x-2 transition-transform">
             {">"}
           </span>
