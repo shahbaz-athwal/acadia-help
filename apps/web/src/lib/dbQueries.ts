@@ -1,5 +1,5 @@
 "use server";
-import { Prisma, Feedback } from ".prisma/client";
+import { Prisma, Feedback } from "@prisma/client";
 import db from "@repo/db/client";
 import { createNotionPageInDatabase } from "./notion-hq";
 
@@ -7,8 +7,16 @@ export async function getAllCourses() {
   return await db.course.findMany();
 }
 
+export async function getAllProfessors() {
+  return await db.professor.findMany();
+}
+
+export async function getAllDepartments() {
+  return await db.department.findMany();
+}
+
 export async function getCoursesByDepartment(prefix: string) {
-  const courses = await db.course.findMany({
+  return await db.course.findMany({
     where: {
       departmentPrefix: prefix,
     },
@@ -16,7 +24,17 @@ export async function getCoursesByDepartment(prefix: string) {
       professors: true,
     },
   });
-  return courses;
+}
+
+export async function getProfessorsByDepartment(prefix: string) {
+  return await db.professor.findMany({
+    where: {
+      departmentPrefix: prefix,
+    },
+    include: {
+      courses: true,
+    },
+  });
 }
 
 export async function getCourseById(id: string) {
@@ -30,11 +48,37 @@ export async function getCourseById(id: string) {
         include: {
           professor: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       },
     },
   });
   return course;
 }
+
+export async function getProfessorById(id: number) {
+  const professor = await db.professor.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      courses: true,
+      feedbacks: {
+        include: {
+          course: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+      department: true,
+    },
+  });
+  return professor;
+}
+
+// "/rate" specific
 export async function getCourseRateById(id: string) {
   return await db.course.findUnique({
     where: {
@@ -54,24 +98,7 @@ export async function getCourseRateById(id: string) {
   });
 }
 
-export async function getProfessorById(id: number) {
-  const professor = await db.professor.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      courses: true,
-      feedbacks: {
-        include: {
-          course: true,
-        },
-      },
-      department: true,
-    },
-  });
-  return professor;
-}
-
+// "/rate" specific
 export async function getProfessorRateById(id: number) {
   return await db.professor.findUnique({
     where: {
@@ -101,7 +128,6 @@ export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {
   });
 
   console.log(updatedCourse);
-
   return updatedCourse;
 }
 
@@ -120,10 +146,6 @@ export async function updateProfessor(
   return updatedProfessor;
 }
 
-export async function getAllDepartments() {
-  return await db.department.findMany();
-}
-
 export async function addCourse(data: Prisma.CourseCreateInput) {
   const { docId } = await createNotionPageInDatabase({
     code: data.courseCode,
@@ -136,30 +158,9 @@ export async function addCourse(data: Prisma.CourseCreateInput) {
   return course;
 }
 
-export async function getProfessorsByDepartment(prefix: string) {
-  const professors = await db.professor.findMany({
-    where: {
-      departmentPrefix: prefix,
-    },
-    include: {
-      courses: {
-        include: {
-          feedbacks: true,
-        },
-      },
-    },
-  });
-
-  return professors;
-}
-
 export async function createProfessor(data: Prisma.ProfessorCreateInput) {
   console.log(data);
   return await db.professor.create({ data });
-}
-
-export async function getAllProfessors() {
-  return await db.professor.findMany();
 }
 
 export async function createDepartment(data: Prisma.DepartmentCreateInput) {
@@ -190,7 +191,7 @@ export async function getDetailedProfessorById(id: string) {
     avgQuality,
   };
 }
-
+//Master Function
 export async function getDetailedCourseById(id: string) {
   const course = await getCourseById(id);
   const ratingCount = course!.feedbacks.length;
@@ -208,7 +209,7 @@ export async function getDetailedCourseById(id: string) {
 
   return { course, ratingCount, ratingDistribution, avgDifficulty, avgQuality };
 }
-
+// Master Function Helper
 export async function getRatingDistribution(
   entity: any,
   type: "quality" | "difficulty"
