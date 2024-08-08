@@ -8,9 +8,9 @@ datasource db {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  email      String     @unique
-  isVerified Boolean    @default(false)
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  isVerified Boolean   @default(false)
   otp        String?
   otpExpiry  DateTime?
   // feedbacks  Feedback[]
@@ -27,8 +27,8 @@ model Feedback {
   difficulty     Int
   bookRequired   Boolean
   attendance     Boolean
-  courseCode     String
-  course         Course    @relation(fields: [courseCode], references: [courseCode])
+  courseId       String
+  course         Course    @relation(fields: [courseId], references: [id])
   professorId    Int
   professor      Professor @relation(fields: [professorId], references: [id])
   createdAt      DateTime  @default(now())
@@ -51,7 +51,7 @@ model Course {
   courseName       String
   description      String?
   docId            String?
-  isDocReady       Boolean     @default(false)
+  // isDocReady       Boolean     @default(false)
   departmentPrefix String
   department       Department  @relation(fields: [departmentPrefix], references: [prefix])
   professors       Professor[]

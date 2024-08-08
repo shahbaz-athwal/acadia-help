@@ -76,7 +76,7 @@ async function main() {
 
   const elhadi = await prisma.professor.create({
     data: {
-      name: "Caroline Coachran",
+      name: "Elhadi Shakshuki",
       image: "https://res.cloudinary.com/dqss5unvd/image/upload/v1722682712/Professors/n3qva4wcd5b0efm8pa2y.jpg",
       department: {
         connect: { prefix: "COMP"},
@@ -159,9 +159,8 @@ async function main() {
   await prisma.feedback.createMany({
     data: [
       {
-        userId: user.id,
         professorId: darcy.id,
-        courseCode: course1.courseCode,
+        courseId: course1.id,
         message: "Great course!",
         grade: "A",
         quality: 5,
@@ -171,9 +170,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: greg.id,
-        courseCode: course1.courseCode,
+        courseId: course1.id,
         message: "Very informative.",
         grade: "B",
         quality: 4,
@@ -183,9 +181,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: darcy.id,
-        courseCode: course2.courseCode,
+        courseId: course2.id,
         message: "Challenging but rewarding.",
         grade: "A",
         quality: 5,
@@ -195,9 +192,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: greg.id,
-        courseCode: course2.courseCode,
+        courseId: course2.id,
         message: "Well structured.",
         grade: "B",
         quality: 4,
@@ -207,9 +203,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: darcy.id,
-        courseCode: course3.courseCode,
+        courseId: course3.id,
         message: "Excellent course.",
         grade: "A",
         quality: 5,
@@ -219,9 +214,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: greg.id,
-        courseCode: course3.courseCode,
+        courseId: course3.id,
         message: "Highly recommend.",
         grade: "B",
         quality: 4,
@@ -231,9 +225,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: ian.id,
-        courseCode: course4.courseCode,
+        courseId: course4.id,
         message: "Very clear explanations.",
         grade: "A",
         quality: 5,
@@ -243,9 +236,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: caro.id,
-        courseCode: course4.courseCode,
+        courseId: course4.id,
         message: "Learned a lot.",
         grade: "B",
         quality: 4,
@@ -255,9 +247,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: ian.id,
-        courseCode: course5.courseCode,
+        courseId: course5.id,
         message: "Enjoyed the course.",
         grade: "A",
         quality: 5,
@@ -267,9 +258,8 @@ async function main() {
         wouldTakeAgain: true,
       },
       {
-        userId: user.id,
         professorId: caro.id,
-        courseCode: course5.courseCode,
+        courseId: course5.id,
         message: "Good balance of theory and practice.",
         grade: "B",
         quality: 4,
