@@ -1,8 +1,9 @@
+import { chartLabels } from "@/lib/constants";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useController, Control } from "react-hook-form";
 
-interface QualitySelectorProps {
+interface RatingSelectorProps {
   name: "difficulty" | "quality";
   control: Control<any>;
 }
@@ -15,14 +16,9 @@ const Colors = [
   "bg-red-500",
 ];
 
-const difficultyLabels = ["Very Easy", "Easy", "Medium", "Hard", "Very Hard"];
-const qualityLabels = ["Awful", "Bad", "OK", "Good", "Awesome"];
-
-const reverseColors = [...Colors].reverse();
-
-const RatingSelector: React.FC<QualitySelectorProps> = ({ name, control }) => {
+const RatingSelector = ({ name, control }: RatingSelectorProps) => {
   const { field } = useController({ name, control });
-  const [selectedValue, setSelectedValue] = useState<number>(field.value || 0);
+  const [selectedValue, setSelectedValue] = useState<number>(field.value);
   const [hoveredValue, setHoveredValue] = useState<number>(0);
 
   const handleClick = (value: number) => {
@@ -32,8 +28,9 @@ const RatingSelector: React.FC<QualitySelectorProps> = ({ name, control }) => {
 
   const displayValue = hoveredValue || selectedValue;
 
-  const labels = name === "difficulty" ? difficultyLabels : qualityLabels;
-  const colors = name === "difficulty" ? Colors : reverseColors;
+  const labels =
+    name === "difficulty" ? chartLabels("difficulty") : [...chartLabels("quality")].reverse();
+  const colors = name === "difficulty" ? Colors : [...Colors].reverse();
 
   const getColorClass = (value: number) =>
     value <= displayValue
@@ -42,7 +39,7 @@ const RatingSelector: React.FC<QualitySelectorProps> = ({ name, control }) => {
 
   return (
     <div className="flex flex-col p-6 items-center w-full">
-      <div className="relative flex max-w-[400px] w-full">
+      <div className="relative flex max-w-[400px] w-full space-x-1">
         {[1, 2, 3, 4, 5].map((value) => (
           <div
             key={value}
@@ -52,7 +49,6 @@ const RatingSelector: React.FC<QualitySelectorProps> = ({ name, control }) => {
               {
                 "rounded-l-full": value === 1,
                 "rounded-r-full": value === 5,
-                "opacity-100": value <= displayValue,
               }
             )}
             onClick={() => handleClick(value)}

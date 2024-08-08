@@ -26,12 +26,54 @@ import {
 } from "@/components/ui/select";
 import { grades } from "@/lib/constants";
 import RatingSelector from "@/components/RatingSelector";
+import {
+  createRating,
+  getCourseRateById,
+  getProfessorRateById,
+} from "@/lib/dbQueries";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const params = useParams();
-  if (params.entity !== "course" && params.entity !== "professor") {
+  const { entity, id }: { entity: string; id: string } = useParams();
+  if (entity !== "course" && entity !== "professor") {
     notFound();
   }
+
+  interface EntityRateProps {
+    id: string | number;
+    name?: string;
+    courseName?: string;
+    courseCode?: string;
+    professors?: {
+      id: number;
+      name: string;
+    }[];
+    image?: string | null;
+    courses?: {
+      id: string;
+      courseCode: string;
+      courseName: string;
+    }[];
+  }
+
+  const [entityData, setEntityData] = useState<EntityRateProps | null>(null);
+
+  useEffect(() => {
+    const fetchProfessor = async () => {
+      setEntityData(await getProfessorRateById(Number(id)));
+    };
+    const fetchCourse = async () => {
+      setEntityData(await getCourseRateById(id));
+    };
+    if (entity === "professor") {
+      fetchProfessor();
+    } else {
+      fetchCourse();
+    }
+  }, []);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
@@ -39,78 +81,99 @@ export default function Page() {
       wouldTakeAgain: false,
       bookRequired: false,
       attendance: false,
+      professorId: entity === "professor" ? Number(id) : undefined,
+      courseId: entity === "course" ? id : undefined,
     },
   });
 
   const onSubmit = async (data: z.infer<typeof reviewSchema>) => {
-    console.log(data);
+    await createRating(data);
   };
 
+  if (form.formState.isSubmitSuccessful) {
+    router.push(`/${entity}/${id}`);
+  }
+  
   return (
-    <div className="max-w-2xl mx-auto pt-12">
-      <h2 className="text-4xl font-bold mb-8 text-center">Rate</h2>
+    <div className="max-w-2xl mx-auto py-12">
+      <h2 className="text-4xl mb-8 text-center">
+        Rate: {entity === "course" ? entityData?.courseName : entityData?.name}
+      </h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            name="courseCode"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg">
-                  What course did you take?
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a course" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-zinc-900">
-                    <SelectItem value="COMP1123d">COMP1123</SelectItem>
-                    <SelectItem value="COMP1123dd">COMP1143</SelectItem>
-                    <SelectItem value="COMP112ddd3">COMP1233</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            name="professorId"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg">Professor</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a professor" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-zinc-900">
-                    <SelectItem value="COMP1123d">COMP1123</SelectItem>
-                    <SelectItem value="COMP1123dd">COMP1143</SelectItem>
-                    <SelectItem value="COMP112ddd3">COMP1233</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {entity === "professor" ? (
+            <FormField
+              name="courseId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-lg">
+                    What course did you take?
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a course" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="bg-zinc-900">
+                      {entityData?.courses?.map((course) => {
+                        return (
+                          <SelectItem key={course.id} value={course.id}>
+                            {course.courseCode} - {course.courseName}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ) : (
+            <FormField
+              name="professorId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-lg">
+                    Who was your professor?
+                  </FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(Number(value))}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a professor" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="bg-zinc-900">
+                      {entityData?.professors?.map((professor) => {
+                        return (
+                          <SelectItem
+                            key={professor.id}
+                            value={String(professor.id)}
+                          >
+                            {professor.name}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             name="quality"
             control={form.control}
-            render={({ field }) => (
+            render={() => (
               <FormItem>
-                <FormLabel className="text-lg">Quality</FormLabel>
+                <FormLabel className="text-lg">Overall Quality</FormLabel>
                 <RatingSelector name="quality" control={form.control} />
                 <FormMessage />
               </FormItem>
@@ -120,9 +183,9 @@ export default function Page() {
           <FormField
             name="difficulty"
             control={form.control}
-            render={({ field }) => (
+            render={() => (
               <FormItem>
-                <FormLabel className="text-lg">Difficulty</FormLabel>
+                <FormLabel className="text-lg">Difficulty Level</FormLabel>
                 <RatingSelector name="difficulty" control={form.control} />
                 <FormMessage />
               </FormItem>
@@ -176,22 +239,24 @@ export default function Page() {
             )}
           />
 
-          <FormField
-            name="wouldTakeAgain"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <Checkbox
-                  checked={field.value!}
-                  onCheckedChange={field.onChange}
-                />
-                <FormLabel className="text-lg font-light ml-3">
-                  Would you take this professor again?
-                </FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {entity === "professor" && (
+            <FormField
+              name="wouldTakeAgain"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <Checkbox
+                    checked={field.value!}
+                    onCheckedChange={field.onChange}
+                  />
+                  <FormLabel className="text-lg font-light ml-3">
+                    Would you take this professor again?
+                  </FormLabel>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             name="bookRequired"
@@ -199,7 +264,7 @@ export default function Page() {
             render={({ field }) => (
               <FormItem>
                 <Checkbox
-                  checked={field.value!}
+                  checked={field.value}
                   onCheckedChange={field.onChange}
                 />
                 <FormLabel className="text-lg font-light ml-3">
@@ -216,7 +281,7 @@ export default function Page() {
             render={({ field }) => (
               <FormItem>
                 <Checkbox
-                  checked={field.value!}
+                  checked={field.value}
                   onCheckedChange={field.onChange}
                 />
                 <FormLabel className="text-lg font-light ml-3">
