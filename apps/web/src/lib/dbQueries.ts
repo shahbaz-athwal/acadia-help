@@ -35,6 +35,24 @@ export async function getCourseById(id: string) {
   });
   return course;
 }
+export async function getCourseRateById(id: string) {
+  return await db.course.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      courseName: true,
+      courseCode: true,
+      professors: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+}
 
 export async function getProfessorById(id: number) {
   const professor = await db.professor.findUnique({
@@ -52,6 +70,26 @@ export async function getProfessorById(id: number) {
     },
   });
   return professor;
+}
+
+export async function getProfessorRateById(id: number) {
+  return await db.professor.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      courses: {
+        select: {
+          id: true,
+          courseCode: true,
+          courseName: true,
+        },
+      },
+    },
+  });
 }
 
 export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {
@@ -190,8 +228,15 @@ export async function getRatingDistribution(
     return ratingCounts;
   } else {
     entity.feedbacks.forEach((feedback: Feedback) => {
-      ratingCounts[feedback.difficulty]!++;
+      ratingCounts[6 - feedback.difficulty]!++;
     });
     return ratingCounts;
   }
+}
+
+export async function createRating(data: Prisma.FeedbackUncheckedCreateInput) {
+  console.log(data);
+  return await db.feedback.create({
+    data,
+  });
 }
