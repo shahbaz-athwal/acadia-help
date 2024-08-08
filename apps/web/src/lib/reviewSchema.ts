@@ -8,7 +8,7 @@ export const reviewSchema = z.object({
   difficulty: z.number().int().min(1).max(5),
   bookRequired: z.boolean(),
   attendance: z.boolean(),
-  courseCode: z.string(),
-  professorId: z.string(),
+  courseId: z.string(),
+  professorId: z.number().int(),
 });
 
