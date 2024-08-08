@@ -2,8 +2,6 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "NOTION_ACTIVE_USER",
-    "NOTION_TOKEN_V2",
     "NOTION_API_KEY",
     "NOTION_DATABASE_ID",
     "CLOUDINARY_CLIENT_API",
