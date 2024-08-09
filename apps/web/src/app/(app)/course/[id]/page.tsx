@@ -1,18 +1,10 @@
-import RenderNotion from "@/components/RenderNotion";
-import ReviewCard from "@/components/ReviewCard";
-import { ReviewChart } from "@/components/ReviewChart";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CourseTabs from "@/components/CourseTabs";
 import { getDetailedCourseById } from "@/lib/dbQueries";
-import { getNotionPage } from "@/lib/notion-client-utils";
-import { showNotionPage } from "@/lib/notion-hq";
 import Link from "next/link";
 
 async function Page({ params }: { params: { id: string } }) {
   const { course, avgDifficulty, avgQuality, ratingCount, ratingDistribution } =
     await getDetailedCourseById(params.id);
-
-  const showPage = await showNotionPage(course?.docId!);
-  const docId = showPage && (await getNotionPage(course?.docId!));
 
   return (
     <div className="max-w-3xl mx-auto p-3 mt-10">
@@ -46,31 +38,13 @@ async function Page({ params }: { params: { id: string } }) {
         </Link>
       </div>
 
-      <Tabs defaultValue="reviews" className="w-full pt-12">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          <TabsTrigger value="notion">Doc</TabsTrigger>
-        </TabsList>
-        <TabsContent
-          value="reviews"
-          className="flex flex-col items-center space-y-3 pt-4"
-        >
-          <ReviewChart ratingCount={ratingDistribution} type="difficulty" />
-          <div className="pt-12">
-            <h2 className="text-lg text-center font-semibold mb-6">
-              {ratingCount} Student Ratings
-            </h2>
-            <ul className="space-y-4">
-              {course!.feedbacks.map((feedback, index) => (
-                <ReviewCard key={index} feedback={feedback} />
-              ))}
-            </ul>
-          </div>
-        </TabsContent>
-        <TabsContent value="notion">
-          {showPage && <RenderNotion recordMap={docId} />}
-        </TabsContent>
-      </Tabs>
+      <CourseTabs
+        ratingCount={ratingCount}
+        ratingDistribution={ratingDistribution}
+        feedbacks={course!.feedbacks}
+        id={course?.docId!}
+      />
+      
     </div>
   );
 }
