@@ -1,5 +1,8 @@
+"use server";
 import { Client } from "@notionhq/client";
+import { NotionAPI } from "notion-client";
 
+const notionx = new NotionAPI();
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
@@ -10,6 +13,10 @@ interface NotionResponse {
   url?: string;
   id: string;
   object: string;
+}
+
+export async function getNotionPage(docId: string) {
+  return await notionx.getPage(docId);
 }
 
 export const createNotionPageInDatabase = async ({

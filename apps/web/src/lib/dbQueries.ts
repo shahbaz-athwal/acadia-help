@@ -1,7 +1,7 @@
 "use server";
 import { Prisma, Feedback } from "@prisma/client";
 import db from "@repo/db/client";
-import { createNotionPageInDatabase } from "./notion-hq";
+import { createNotionPageInDatabase } from "./notion";
 
 export async function getAllCourses() {
   return await db.course.findMany();

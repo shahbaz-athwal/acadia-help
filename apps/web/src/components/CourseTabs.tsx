@@ -4,8 +4,7 @@ import RenderNotion from "@/components/RenderNotion";
 import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getNotionPage } from "@/lib/notion-client-utils";
-import { showNotionPage } from "@/lib/notion-hq";
+import { getNotionPage, showNotionPage } from "@/lib/notion";
 
 interface CourseTabsProps {
   ratingCount: number;

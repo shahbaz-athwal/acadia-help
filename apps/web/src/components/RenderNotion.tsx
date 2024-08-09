@@ -9,7 +9,7 @@ export function RenderNotion({ recordMap }: any) {
       pageTitle={false}
       className="rounded-3xl justify-center bg-zinc-700/50 h-fit"
       recordMap={recordMap}
-      fullPage={true}
+      fullPage={false}
       darkMode
     />
   );
