@@ -1,8 +1,5 @@
-"use server";
 import { Client } from "@notionhq/client";
-import { NotionAPI } from "notion-client";
 
-const notionx = new NotionAPI();
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
@@ -13,18 +10,13 @@ interface NotionResponse {
   id: string;
 }
 
-export async function getNotionPage(docId: string) {
-  const { checkbox: showPage }: any = await notion.pages.properties.retrieve({
+export async function getNotionPageProperties(docId: string) {
+  const { checkbox }: any = await notion.pages.properties.retrieve({
     page_id: docId,
     property_id: "uvOQ",
   });
 
-  if (showPage) {
-    const pageData = await notionx.getPage(docId);
-    return pageData;
-  }
-
-  return null;
+  return checkbox;
 }
 
 export const createNotionPageInDatabase = async ({

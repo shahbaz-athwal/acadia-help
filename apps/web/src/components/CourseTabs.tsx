@@ -1,11 +1,9 @@
-"use client";
-import { useState } from "react";
 import RenderNotion from "@/components/RenderNotion";
 import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getNotionPage } from "@/lib/notion";
-import { ExtendedRecordMap } from "notion-types";
+import { getNotionPageMap } from "@/lib/notion-client-utils";
+// import { ExtendedRecordMap } from "notion-types";
 
 interface CourseTabsProps {
   ratingCount: number;
@@ -14,29 +12,19 @@ interface CourseTabsProps {
   docId: string;
 }
 
-const CourseTabs: React.FC<CourseTabsProps> = ({
+const CourseTabs: React.FC<CourseTabsProps> = async ({
   ratingCount,
   ratingDistribution,
   feedbacks,
   docId,
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [showPage, setShowPage] = useState<ExtendedRecordMap | null>(null);
-
-  const handleDocTabSelect = async () => {
-    setLoading(true);
-    const pageData = await getNotionPage(docId);
-    if (pageData) {
-      setShowPage(pageData);
-    }
-    setLoading(false);
-  };
+  const pageData = await getNotionPageMap(docId);
 
   return (
     <Tabs defaultValue="reviews" className="w-full pt-12">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="reviews">Reviews</TabsTrigger>
-        <TabsTrigger value="notion" onClick={handleDocTabSelect}>
+        <TabsTrigger value="notion">
           Doc
         </TabsTrigger>
       </TabsList>
@@ -57,14 +45,12 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
         </div>
       </TabsContent>
       <TabsContent value="notion">
-        {loading ? (
-          <div className="text-center py-10">Loading...</div>
-        ) : showPage ? (
-          <RenderNotion recordMap={showPage} />
+        {pageData ? (
+          <RenderNotion recordMap={pageData} />
         ) : (
           <div className="text-center pt-6 text-lg text-zinc-500">
             <div>We are working to get material for this course</div>
-            <div>Sorry for inconvinience</div>
+            <div>Sorry for the inconvenience</div>
           </div>
         )}
       </TabsContent>
