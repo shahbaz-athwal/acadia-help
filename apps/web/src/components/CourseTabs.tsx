@@ -5,6 +5,7 @@ import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExtendedRecordMap } from "notion-types";
+import { Loader } from "./Loader";
 
 interface CourseTabsProps {
   ratingCount: number;
@@ -22,7 +23,7 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
   const [loading, setLoading] = useState(true);
   const [pageMap, setPageMap] = useState<ExtendedRecordMap | null>(null);
 
-  const handleDocTabSelect = async () => {
+  const handleSelect = async () => {
     const response = await fetch(`/api/notionmap`, {
       method: "POST",
       headers: {
@@ -40,8 +41,8 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
     <Tabs defaultValue="reviews" className="w-full pt-12">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="reviews">Reviews</TabsTrigger>
-        <TabsTrigger value="notion" onClick={handleDocTabSelect}>
-          Doc
+        <TabsTrigger value="notion" onClick={handleSelect}>
+          Course Material
         </TabsTrigger>
       </TabsList>
       <TabsContent
@@ -62,7 +63,7 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
       </TabsContent>
       <TabsContent value="notion">
         {loading ? (
-          <div className="text-center py-10">Loading...</div>
+          <Loader />
         ) : pageMap ? (
           <RenderNotion recordMap={pageMap} />
         ) : (
