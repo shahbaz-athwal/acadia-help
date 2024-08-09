@@ -6,9 +6,10 @@ export function RenderNotion({ recordMap }: any) {
   return (
     <NotionRenderer
       disableHeader
-      className="rounded-3xl justify-center bg-zinc-700/50 m-4 h-[200px]"
+      pageTitle={false}
+      className="rounded-3xl justify-center bg-zinc-700/50 h-fit"
       recordMap={recordMap}
-      fullPage={false}
+      fullPage={true}
       darkMode
     />
   );

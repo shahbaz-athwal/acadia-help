@@ -12,7 +12,13 @@ interface NotionResponse {
   object: string;
 }
 
-export const createNotionPageInDatabase = async ({ code, name }: any) => {
+export const createNotionPageInDatabase = async ({
+  code,
+  name,
+}: {
+  code: string;
+  name: string;
+}) => {
   const response: NotionResponse = await notion.pages.create({
     parent: {
       type: "database_id",
@@ -29,18 +35,46 @@ export const createNotionPageInDatabase = async ({ code, name }: any) => {
           },
         ],
       },
+      "Show Page": {
+        checkbox: false,
+      },
     },
+
+    children: [
+      {
+        object: "block",
+        type: "heading_3",
+        heading_3: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content:
+                  "We are working to get the material for this course. Sorry for the inconvenience.",
+              },
+            },
+          ],
+        },
+      },
+    ],
   });
 
-  const docId = response.url!.split("notion.so/")[1];
-
-  return { success: true, docId };
+  return { success: true, docId: response.id };
 };
 
 export const getNotionDatabase = async () => {
-  const response = await notion.databases.retrieve({
+  return await notion.databases.retrieve({
     database_id: syllabusDatabaseId,
   });
-  console.log(response);
 };
-;
+
+export const showNotionPage = async (id: string) => {
+  const response = await notion.pages.retrieve({
+    page_id: id,
+    filter_properties: ["uvOQ"],
+  });
+  // @ts-ignore
+  console.log(response.properties);
+  // @ts-ignore
+  return response.properties["Show Page"].checkbox;
+};

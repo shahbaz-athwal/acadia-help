@@ -61,7 +61,7 @@ export function ReviewChart({
   ];
 
   return (
-    <Card className="w-fit max-w-full mt-12 mx-auto">
+    <Card className="w-fit max-w-full mt-8 mx-auto">
       <CardHeader>
         <CardTitle>{type === "difficulty"? "Difficulty" : "Quality"}  Distribution</CardTitle>
       </CardHeader>
