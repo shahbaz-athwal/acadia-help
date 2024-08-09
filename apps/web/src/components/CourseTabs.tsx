@@ -1,40 +1,35 @@
-"use client"
+"use client";
 import { useState } from "react";
 import RenderNotion from "@/components/RenderNotion";
 import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getNotionPage, showNotionPage } from "@/lib/notion";
+import { getNotionPage } from "@/lib/notion";
+import { ExtendedRecordMap } from "notion-types";
 
 interface CourseTabsProps {
   ratingCount: number;
   ratingDistribution: any;
   feedbacks: any[];
-  id: string;
+  docId: string;
 }
 
 const CourseTabs: React.FC<CourseTabsProps> = ({
   ratingCount,
   ratingDistribution,
   feedbacks,
-  id,
+  docId,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [docId, setDocId] = useState<string | null>(null);
-  const [showPage, setShowPage] = useState(false);
+  const [showPage, setShowPage] = useState<ExtendedRecordMap | null>(null);
 
   const handleDocTabSelect = async () => {
-    if (!docId && !showPage) {
-      setLoading(true);
-      const showPage = await showNotionPage(id);
-      if (showPage) {
-        const fetchedDocId = await getNotionPage(id);
-        // @ts-ignore
-        setDocId(fetchedDocId);
-        setShowPage(true);
-      }
-      setLoading(false);
+    setLoading(true);
+    const pageData = await getNotionPage(docId);
+    if (pageData) {
+      setShowPage(pageData);
     }
+    setLoading(false);
   };
 
   return (
@@ -64,8 +59,13 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
       <TabsContent value="notion">
         {loading ? (
           <div className="text-center py-10">Loading...</div>
+        ) : showPage ? (
+          <RenderNotion recordMap={showPage} />
         ) : (
-          showPage && docId && <RenderNotion recordMap={docId} />
+          <div className="text-center pt-6 text-lg text-zinc-500">
+            <div>We are working to get material for this course</div>
+            <div>Sorry for inconvinience</div>
+          </div>
         )}
       </TabsContent>
     </Tabs>

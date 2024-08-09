@@ -10,13 +10,21 @@ const notion = new Client({
 const syllabusDatabaseId = process.env.NOTION_DATABASE_ID as string;
 
 interface NotionResponse {
-  url?: string;
   id: string;
-  object: string;
 }
 
 export async function getNotionPage(docId: string) {
-  return await notionx.getPage(docId);
+  const { checkbox: showPage }: any = await notion.pages.properties.retrieve({
+    page_id: docId,
+    property_id: "uvOQ",
+  });
+
+  if (showPage) {
+    const pageData = await notionx.getPage(docId);
+    return pageData;
+  }
+
+  return null;
 }
 
 export const createNotionPageInDatabase = async ({
@@ -47,23 +55,23 @@ export const createNotionPageInDatabase = async ({
       },
     },
 
-    children: [
-      {
-        object: "block",
-        type: "heading_3",
-        heading_3: {
-          rich_text: [
-            {
-              type: "text",
-              text: {
-                content:
-                  "We are working to get the material for this course. Sorry for the inconvenience.",
-              },
-            },
-          ],
-        },
-      },
-    ],
+    // children: [
+    //   {
+    //     object: "block",
+    //     type: "heading_3",
+    //     heading_3: {
+    //       rich_text: [
+    //         {
+    //           type: "text",
+    //           text: {
+    //             content:
+    //               "We are working to get the material for this course. Sorry for the inconvenience.",
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   },
+    // ],
   });
 
   return { success: true, docId: response.id };
@@ -73,15 +81,4 @@ export const getNotionDatabase = async () => {
   return await notion.databases.retrieve({
     database_id: syllabusDatabaseId,
   });
-};
-
-export const showNotionPage = async (id: string) => {
-  const response = await notion.pages.retrieve({
-    page_id: id,
-    filter_properties: ["uvOQ"],
-  });
-  // @ts-ignore
-  console.log(response.properties);
-  // @ts-ignore
-  return response.properties["Show Page"].checkbox;
 };

@@ -42,7 +42,7 @@ async function Page({ params }: { params: { id: string } }) {
         ratingCount={ratingCount}
         ratingDistribution={ratingDistribution}
         feedbacks={course!.feedbacks}
-        id={course?.docId!}
+        docId={course?.docId!}
       />
       
     </div>
