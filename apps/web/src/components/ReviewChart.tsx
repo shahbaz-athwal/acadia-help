@@ -63,10 +63,12 @@ export function ReviewChart({
   return (
     <Card className="w-fit max-w-full mt-8 mx-auto">
       <CardHeader>
-        <CardTitle>{type === "difficulty"? "Difficulty" : "Quality"}  Distribution</CardTitle>
+        <CardTitle>
+          {type === "difficulty" ? "Difficulty" : "Quality"} Distribution
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="w-[400px] sm:w-[500px]" config={chartConfig}>
+        <ChartContainer className="w-[330px] sm:w-[500px]" config={chartConfig}>
           <BarChart accessibilityLayer data={chartData} layout="vertical">
             <CartesianGrid horizontal={false} />
             <YAxis

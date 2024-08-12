@@ -1,3 +1,4 @@
+//notion-client causes build error if used in server actions.
 import { getNotionPageProperties } from "@/lib/notion";
 import { NotionAPI } from "notion-client";
 

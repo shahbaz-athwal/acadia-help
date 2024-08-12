@@ -31,7 +31,7 @@ export const SearchClient = () => {
               <SearchIcon className="h-[1.2rem] w-[1.2rem]" />
               Search...
             </div>
-            <kbd className="bg-white/10 p-1.5 rounded-sm text-xs leading-3">
+            <kbd className="bg-white/10 p-1 rounded-sm text-xs leading-3">
               Ctrl K
             </kbd>
           </div>
@@ -39,7 +39,7 @@ export const SearchClient = () => {
             <SearchIcon className="h-[1.2rem] w-[1.2rem]" />
           </div>
         </Button>
-        <DialogContent className="p-0 max-w-2xl border-none top-[30vh] h-[250px]">
+        <DialogContent className="p-0 max-w-2xl border-none top-[20vh] translate-y-0">
           <SearchBox setDialogOpen={setDialogOpen} />
         </DialogContent>
       </Dialog>
