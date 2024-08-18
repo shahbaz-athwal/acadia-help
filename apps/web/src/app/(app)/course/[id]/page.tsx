@@ -2,6 +2,14 @@ import CourseTabs from "@/components/CourseTabs";
 import { getDetailedCourseById } from "@/lib/dbQueries";
 import Link from "next/link";
 
+// export async function generateStaticParams() {
+//   const courses = await getAllCourses();
+//   const allPages = courses.map((course) => {
+//     return course.id;
+//   });
+//   return allPages;
+// }
+
 async function Page({ params }: { params: { id: string } }) {
   const { course, avgDifficulty, avgQuality, ratingCount, ratingDistribution } =
     await getDetailedCourseById(params.id);
@@ -44,7 +52,6 @@ async function Page({ params }: { params: { id: string } }) {
         feedbacks={course!.feedbacks}
         docId={course?.docId!}
       />
-      
     </div>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 import * as React from "react";
 import { NotionRenderer } from "react-notion-x";
+import { ExtendedRecordMap } from "notion-types";
 
-export function RenderNotion({ recordMap }: any) {
+export function RenderNotion({ recordMap }: { recordMap: ExtendedRecordMap }) {
   return (
     <NotionRenderer
       disableHeader

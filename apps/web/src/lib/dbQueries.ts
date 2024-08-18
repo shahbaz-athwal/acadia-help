@@ -236,8 +236,7 @@ export async function getRatingDistribution(
 }
 
 export async function createRating(data: Prisma.FeedbackUncheckedCreateInput) {
-  console.log(data);
-  return await db.feedback.create({
+  await db.feedback.create({
     data,
   });
 }

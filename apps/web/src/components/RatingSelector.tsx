@@ -29,7 +29,9 @@ const RatingSelector = ({ name, control }: RatingSelectorProps) => {
   const displayValue = hoveredValue || selectedValue;
 
   const labels =
-    name === "difficulty" ? chartLabels("difficulty") : [...chartLabels("quality")].reverse();
+    name === "difficulty"
+      ? chartLabels("difficulty")
+      : [...chartLabels("quality")].reverse();
   const colors = name === "difficulty" ? Colors : [...Colors].reverse();
 
   const getColorClass = (value: number) =>

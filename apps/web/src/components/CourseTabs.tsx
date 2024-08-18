@@ -5,7 +5,7 @@ import ReviewCard from "@/components/ReviewCard";
 import { ReviewChart } from "@/components/ReviewChart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExtendedRecordMap } from "notion-types";
-import { Loader } from "./Loader";
+import { Loading } from "./Loader";
 
 interface CourseTabsProps {
   ratingCount: number;
@@ -63,7 +63,7 @@ const CourseTabs: React.FC<CourseTabsProps> = ({
       </TabsContent>
       <TabsContent value="notion">
         {loading ? (
-          <Loader />
+          <Loading />
         ) : pageMap ? (
           <RenderNotion recordMap={pageMap} />
         ) : (
