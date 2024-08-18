@@ -25,14 +25,6 @@ async function main() {
     ],
   });
 
-  // Create user
-  const user = await prisma.user.create({
-    data: {
-      email: "user@example.com",
-      isVerified: true,
-    },
-  });
-
   // Create professors
   const darcy = await prisma.professor.create({
     data: {
@@ -89,7 +81,7 @@ async function main() {
     data: {
       courseCode: "COMP1113",
       courseName: "Computer Programming 1",
-      docId: "COMP1113-Computer-Programming-1-7e847d61e6244af48205e9bbd91d2166",
+      docId: "7e847d61e6244af48205e9bbd91d2166",
       department: {
         connect: { prefix: "COMP" },
       },
@@ -103,12 +95,12 @@ async function main() {
     data: {
       courseCode: "COMP2213",
       courseName: "Data Structures and Algorithms",
-      docId: "COMP2213-Data-Structures-and-Algorithms-24bc04260fc24bac9606453d1ed44db8",
+      docId: "24bc04260fc24bac9606453d1ed44db8",
       department: {
         connect: { prefix: "COMP" },
       },
       professors: {
-        connect: [{ id: darcy.id }, { id: greg.id }],
+        connect: [{ id: darcy.id }],
       },
     },
   });
@@ -117,7 +109,7 @@ async function main() {
     data: {
       courseCode: "COMP1123",
       courseName: "Computer Programming 2",
-      docId: "COMP1123-Computer-Programming-2-3b8cd659b7d34f1ea7ea33be53b4a1e5",
+      docId: "3b8cd659b7d34f1ea7ea33be53b4a1e5",
       department: {
         connect: { prefix: "COMP" },
       },
@@ -131,7 +123,7 @@ async function main() {
     data: {
       courseCode: "MATH1013",
       courseName: "Introductory Calculus 1",
-      docId: "MATH1013-Introductory-Calculus-1-5d13f3f75cfb4de4bfebf9b44db08e1e",
+      docId: "5d13f3f75cfb4de4bfebf9b44db08e1e",
       department: {
         connect: { prefix: "MATH" },
       },
@@ -145,130 +137,11 @@ async function main() {
     data: {
       courseCode: "MATH1253",
       courseName: "Statistics 1",
-      docId: "MATH1253-Statistics-1-6e04cf0829f5433d82c24b603e9a7332",
+      docId: "6e04cf0829f5433d82c24b603e9a7332",
       department: {
         connect: { prefix: "MATH" },
-      },
-      professors: {
-        connect: { id: ian.id },
-      },
+      }
     },
-  });
-
-  // Create feedbacks
-  await prisma.feedback.createMany({
-    data: [
-      {
-        professorId: darcy.id,
-        courseId: course1.id,
-        message: "Great course!",
-        grade: "A",
-        quality: 5,
-        difficulty: 3,
-        bookRequired: true,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: greg.id,
-        courseId: course1.id,
-        message: "Very informative.",
-        grade: "B",
-        quality: 4,
-        difficulty: 2,
-        bookRequired: false,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: darcy.id,
-        courseId: course2.id,
-        message: "Challenging but rewarding.",
-        grade: "A",
-        quality: 5,
-        difficulty: 4,
-        bookRequired: true,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: greg.id,
-        courseId: course2.id,
-        message: "Well structured.",
-        grade: "B",
-        quality: 4,
-        difficulty: 3,
-        bookRequired: false,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: darcy.id,
-        courseId: course3.id,
-        message: "Excellent course.",
-        grade: "A",
-        quality: 5,
-        difficulty: 3,
-        bookRequired: true,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: greg.id,
-        courseId: course3.id,
-        message: "Highly recommend.",
-        grade: "B",
-        quality: 4,
-        difficulty: 2,
-        bookRequired: false,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: ian.id,
-        courseId: course4.id,
-        message: "Very clear explanations.",
-        grade: "A",
-        quality: 5,
-        difficulty: 2,
-        bookRequired: true,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: caro.id,
-        courseId: course4.id,
-        message: "Learned a lot.",
-        grade: "B",
-        quality: 4,
-        difficulty: 3,
-        bookRequired: false,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: ian.id,
-        courseId: course5.id,
-        message: "Enjoyed the course.",
-        grade: "A",
-        quality: 5,
-        difficulty: 2,
-        bookRequired: true,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-      {
-        professorId: caro.id,
-        courseId: course5.id,
-        message: "Good balance of theory and practice.",
-        grade: "B",
-        quality: 4,
-        difficulty: 3,
-        bookRequired: false,
-        attendance: true,
-        wouldTakeAgain: true,
-      },
-    ],
   });
 
   console.log("Database has been seeded.");

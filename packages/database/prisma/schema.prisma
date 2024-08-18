@@ -7,19 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
-  isVerified Boolean   @default(false)
-  otp        String?
-  otpExpiry  DateTime?
-  // feedbacks  Feedback[]
-}
-
 model Feedback {
   id             String    @id @default(uuid())
-  // userId         Int?
-  // user           User?     @relation(fields: [userId], references: [id])
   message        String
   grade          String
   wouldTakeAgain Boolean?
@@ -51,7 +40,7 @@ model Course {
   courseName       String
   description      String?
   docId            String?
-  // isDocReady       Boolean     @default(false)
+  isDocReady       Boolean     @default(false)
   departmentPrefix String
   department       Department  @relation(fields: [departmentPrefix], references: [prefix])
   professors       Professor[]
