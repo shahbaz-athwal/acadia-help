@@ -8,6 +8,7 @@
     "CLOUDINARY_CLIENT_NAME",
     "CLOUDINARY_CLIENT_SECRET",
     "DATABASE_URL",
+    "DIRECT_URL",
     "ADMIN_PASSWORD"
   ],
   "tasks": {
