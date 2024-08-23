@@ -3,7 +3,7 @@ import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { useEffect, useState } from "react";
-import { SearchBox, SearchResults } from "@/app/admin/Components/Search";
+import { SearchBox, SearchResults } from "@/components/admin/Search";
 
 export const SearchClient = ({
   initialResults,

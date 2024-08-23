@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { SearchBox } from "./Components/Search";
+import { SearchBox } from "../../components/admin/Search";
 import Link from "next/link";
 import { LockIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";

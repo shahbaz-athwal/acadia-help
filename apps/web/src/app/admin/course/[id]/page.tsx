@@ -1,7 +1,7 @@
 import { getCourseById, getProfessorsByDepartment } from "@/lib/dbQueries";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import EditCourse from "../../Components/EditCourse";
+import EditCourse from "../../../../components/admin/EditCourse";
 
 async function Page({ params }: { params: { id: string } }) {
   const course = await getCourseById(params.id);
