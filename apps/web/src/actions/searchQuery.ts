@@ -7,6 +7,7 @@ interface SearchResults {
   professors: Professor[];
 }
 export async function getAllResults(): Promise<SearchResults> {
+  console.log("HIT")
   const [courses, professors] = await Promise.all([
     db.course.findMany(),
     db.professor.findMany(),

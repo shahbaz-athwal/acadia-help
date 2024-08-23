@@ -3,6 +3,7 @@ import { SearchBox } from "./Components/Search";
 import Link from "next/link";
 import { LockIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getAllResults } from "@/actions/searchQuery";
 
 export default async function RootLayout({
   children,
@@ -41,6 +42,8 @@ export default async function RootLayout({
       </div>
     );
   }
+  const results = await getAllResults();
+
   return (
     <>
       <div className="flex justify-between">
@@ -56,7 +59,7 @@ export default async function RootLayout({
         </Link>
       </div>
       <div className="mx-4 mt-8 flex justify-center">
-        <SearchBox />
+        <SearchBox initialResults={results} />
       </div>
       {children}
     </>

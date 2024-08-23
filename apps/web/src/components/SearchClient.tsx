@@ -3,9 +3,13 @@ import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { useEffect, useState } from "react";
-import { SearchBox } from "@/app/admin/Components/Search";
+import { SearchBox, SearchResults } from "@/app/admin/Components/Search";
 
-export const SearchClient = () => {
+export const SearchClient = ({
+  initialResults,
+}: {
+  initialResults: SearchResults;
+}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -40,7 +44,10 @@ export const SearchClient = () => {
           </div>
         </Button>
         <DialogContent className="p-0 max-w-2xl border-none top-[10vh] md:top-[20vh] translate-y-0">
-          <SearchBox setDialogOpen={setDialogOpen} />
+          <SearchBox
+            initialResults={initialResults}
+            setDialogOpen={setDialogOpen}
+          />
         </DialogContent>
       </Dialog>
     </>
