@@ -43,11 +43,18 @@ export default async function RootLayout({
   }
   return (
     <>
-      <Link href={"/api/auth/signout"} className="flex justify-end m-4">
-        <Button variant={"outline"} size={"sm"}>
-          Signout
-        </Button>
-      </Link>
+      <div className="flex justify-between">
+        <Link href={"/"} className="flex justify-end m-4">
+          <Button variant={"outline"} size={"sm"}>
+            Home
+          </Button>
+        </Link>
+        <Link href={"/api/auth/signout"} className="flex justify-end m-4">
+          <Button variant={"outline"} size={"sm"}>
+            Signout
+          </Button>
+        </Link>
+      </div>
       <div className="mx-4 mt-8 flex justify-center">
         <SearchBox />
       </div>
