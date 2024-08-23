@@ -171,8 +171,9 @@ export async function createDepartment(data: Prisma.DepartmentCreateInput) {
 //Master Function
 export async function getDetailedProfessorById(id: string) {
   const professor = await getProfessorById(Number(id));
-  const ratingDistribution = getRatingDistribution(professor, "quality");
+  console.log(professor);
   const ratingCount = professor!.feedbacks.length;
+  const ratingDistribution = await getRatingDistribution(professor, "quality");
 
   const avgDifficulty = (
     professor!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
@@ -196,7 +197,7 @@ export async function getDetailedProfessorById(id: string) {
 export async function getDetailedCourseById(id: string) {
   const course = await getCourseById(id);
   const ratingCount = course!.feedbacks.length;
-  const ratingDistribution = getRatingDistribution(course, "difficulty");
+  const ratingDistribution = await getRatingDistribution(course, "difficulty");
 
   const avgDifficulty = (
     course!.feedbacks.reduce((acc, { difficulty }) => acc + difficulty, 0) /
@@ -217,7 +218,7 @@ export async function getDetailedCourseById(id: string) {
   };
 }
 // Master Function Helper
-export function getRatingDistribution(
+export async function getRatingDistribution(
   entity: any,
   type: "quality" | "difficulty"
 ) {
