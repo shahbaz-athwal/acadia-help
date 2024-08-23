@@ -4,12 +4,14 @@ import Link from "next/link";
 import { LockIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getAllResults } from "@/actions/searchQuery";
+import { unstable_noStore } from "next/cache";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  unstable_noStore();
   const session = await auth();
   if (!session?.user) {
     return (

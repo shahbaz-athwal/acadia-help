@@ -1,6 +1,6 @@
 "use client";
 import { Clipboard, User } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Course, Professor } from "@prisma/client";
 import {
   Command,
