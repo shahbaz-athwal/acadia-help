@@ -44,20 +44,6 @@ export function SearchBox({ setDialogOpen }: SearchProps) {
     fetchInitialData();
   }, []);
 
-  useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.code === "KeyK") {
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyPress);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
-
   return (
     <Command className="rounded-none sm:rounded-lg border shadow-md max-w-2xl mx-auto">
       <CommandInput

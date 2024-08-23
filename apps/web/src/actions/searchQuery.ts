@@ -7,8 +7,10 @@ interface SearchResults {
   professors: Professor[];
 }
 export async function getAllResults(): Promise<SearchResults> {
-  const courses = await db.course.findMany();
-  const professors = await db.professor.findMany();
+  const [courses, professors] = await Promise.all([
+    db.course.findMany(),
+    db.professor.findMany(),
+  ]);
   return {
     courses,
     professors,
