@@ -13,7 +13,6 @@ import Link from "next/link";
 async function Page({ params }: { params: { id: string } }) {
   const { course, avgDifficulty, avgQuality, ratingCount, ratingDistribution } =
     await getDetailedCourseById(params.id);
-
   return (
     <div className="max-w-3xl mx-auto p-3 mt-10">
       <div>
