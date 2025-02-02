@@ -27,8 +27,8 @@ async function Page({ params }: { params: { prefix: string } }) {
         </TabsList>
         <TabsContent
           value="courses"
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8"
-        >
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+
           {courses.map((course) => (
             <Card key={course.id} className="hover:bg-zinc-800">
               <Link
@@ -64,8 +64,7 @@ async function Page({ params }: { params: { prefix: string } }) {
                       <AvatarImage
                         src={professor.image!}
                         alt={professor.name}
-                        className="object-cover"
-                      />
+                        className="object-cover"/>
                       <AvatarFallback>
                         {professor.name.charAt(0)}
                       </AvatarFallback>
