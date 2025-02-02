@@ -28,13 +28,13 @@ export default async function RootLayout({
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row">
             <Link
-              className="inline-flex h-10 items-center justify-center rounded-md border    px-8 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border-gray-800 bg-zinc-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300"
+              className="inline-flex h-10 items-center justify-center rounded-md border    px-8 text-sm font-medium shadow-xs transition-colors focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border-gray-800 bg-zinc-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300"
               href="/"
             >
               Return to the homepage
             </Link>
             <Link
-              className="inline-flex h-10 items-center justify-center rounded-md border    px-8 text-sm font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border-gray-800 bg-zinc-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300"
+              className="inline-flex h-10 items-center justify-center rounded-md border    px-8 text-sm font-medium shadow-xs transition-colors focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border-gray-800 bg-zinc-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300"
               href="/api/auth/signin"
             >
               SignIn to get access
