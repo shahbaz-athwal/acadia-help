@@ -2,11 +2,9 @@ import RatingForm from "@/components/RatingForm";
 import { getCourseRateById, getProfessorRateById } from "@/lib/dbQueries";
 import { notFound } from "next/navigation";
 
-export default async function Page(
-  props: {
-    params: Promise<{ entity: string; id: string }>;
-  }
-) {
+export default async function Page(props: {
+  params: Promise<{ entity: string; id: string }>;
+}) {
   const params = await props.params;
   if (params.entity !== "course" && params.entity !== "professor") {
     return notFound();

@@ -51,7 +51,7 @@ const RatingSelector = ({ name, control }: RatingSelectorProps) => {
               {
                 "rounded-l-full": value === 1,
                 "rounded-r-full": value === 5,
-              }
+              },
             )}
             onClick={() => handleClick(value)}
             onMouseEnter={() => setHoveredValue(value)}

@@ -83,8 +83,8 @@ export function SearchBox({ setDialogOpen, initialResults }: SearchProps) {
           </>
         ) : (
           <div className="flex flex-col items-center italic text-xs text-zinc-600 py-4">
-            <div>Try: "Darcy Benoit"</div>
-            <div>or "comp1113"</div>
+            <div>{'Try: "Darcy Benoit"'}</div>
+            <div>{'or "comp1113"'}</div>
           </div>
         )}
       </CommandList>

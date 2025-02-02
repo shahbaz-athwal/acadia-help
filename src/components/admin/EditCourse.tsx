@@ -31,7 +31,7 @@ const EditCourse = ({
   const [courseName, setCourseName] = useState(course.courseName);
   const [description, setDescription] = useState(course.description);
   const [selectedProfessors, setSelectedProfessors] = useState<Professor[]>(
-    course.professors
+    course.professors,
   );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,7 +40,7 @@ const EditCourse = ({
     setSelectedProfessors((alreadySelected) =>
       alreadySelected.some((prof) => prof.id === id)
         ? alreadySelected.filter((prof) => prof.id !== id)
-        : [...alreadySelected, professors.find((prof) => prof.id === id)!]
+        : [...alreadySelected, professors.find((prof) => prof.id === id)!],
     );
   };
 
@@ -54,7 +54,7 @@ const EditCourse = ({
 
     const disconnectProfessors = course.professors
       .filter((checkProf) =>
-        selectedProfessors.every((prof) => prof.id !== checkProf.id)
+        selectedProfessors.every((prof) => prof.id !== checkProf.id),
       )
       .map((professor) => ({
         id: professor.id,
@@ -132,7 +132,7 @@ const EditCourse = ({
                       <CommandItem key={professor.id}>
                         <Checkbox
                           checked={selectedProfessors.some(
-                            (selected) => selected.id === professor.id
+                            (selected) => selected.id === professor.id,
                           )}
                           onCheckedChange={() =>
                             handleProfessorToggle(professor.id)

@@ -11,4 +11,3 @@ export const reviewSchema = z.object({
   courseId: z.string(),
   professorId: z.number().int(),
 });
-

@@ -1,7 +1,7 @@
 "use client";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "./ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { useEffect, useState } from "react";
 import { SearchBox, SearchResults } from "@/components/admin/Search";
 
@@ -29,6 +29,7 @@ export const SearchClient = ({
   return (
     <>
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogTitle className="sr-only">Search</DialogTitle>
         <Button variant="outline" onClick={() => setDialogOpen(true)}>
           <div className="md:flex justify-between items-center hidden w-48">
             <div className="flex gap-2">

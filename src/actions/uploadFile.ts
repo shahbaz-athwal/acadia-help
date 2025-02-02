@@ -29,7 +29,7 @@ export async function uploadProfilePicture(formData: FormData, id: number) {
             resolve(result as CloudinaryUploadResult);
           })
           .end(buffer);
-      }
+      },
     );
 
     const { image: imageUrl } = await db.professor.update({

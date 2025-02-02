@@ -134,7 +134,7 @@ export async function updateCourse(id: string, data: Prisma.CourseUpdateInput) {
 
 export async function updateProfessor(
   id: number,
-  data: Prisma.ProfessorUpdateInput
+  data: Prisma.ProfessorUpdateInput,
 ) {
   const updatedProfessor = await db.professor.update({
     where: {
@@ -220,7 +220,7 @@ export async function getDetailedCourseById(id: string) {
 // Master Function Helper
 export async function getRatingDistribution(
   entity: any,
-  type: "quality" | "difficulty"
+  type: "quality" | "difficulty",
 ) {
   const ratingCounts: Record<number, number> = {
     5: 0,

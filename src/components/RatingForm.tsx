@@ -25,9 +25,7 @@ import {
 } from "@/components/ui/select";
 import { grades } from "@/lib/constants";
 import RatingSelector from "@/components/RatingSelector";
-import {
-  createRating,
-} from "@/lib/dbQueries";
+import { createRating } from "@/lib/dbQueries";
 import { useRouter } from "next/navigation";
 
 interface EntityRateProps {
@@ -50,11 +48,11 @@ interface EntityRateProps {
 export default function RatingForm({
   entityData,
   entity,
-  id
+  id,
 }: {
   entityData: EntityRateProps;
   entity: string;
-  id: string
+  id: string;
 }) {
   const router = useRouter();
 
