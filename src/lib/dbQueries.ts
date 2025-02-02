@@ -1,6 +1,6 @@
 "use server";
 import { Prisma, Feedback } from "@prisma/client";
-import db from "@repo/db/client";
+import db from "./db";
 import { createNotionPageInDatabase } from "./notion";
 import { revalidateTag } from "next/cache";
 
