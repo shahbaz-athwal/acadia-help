@@ -3,7 +3,8 @@ import EditProfessor from "../../../../components/admin/EditProfessor";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-async function Page({ params }: { params: { id: string } }) {
+async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const professor = await getProfessorById(Number(params.id));
   const courses = await getCoursesByDepartment(professor?.departmentPrefix!); //XXXX
 

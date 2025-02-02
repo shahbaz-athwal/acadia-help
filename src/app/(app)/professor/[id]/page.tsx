@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-async function Page({ params }: { params: { id: string } }) {
+async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const {
     professor,
     avgDifficulty,

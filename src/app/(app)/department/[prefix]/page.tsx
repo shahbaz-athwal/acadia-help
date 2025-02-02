@@ -14,7 +14,8 @@ import {
 } from "@/lib/dbQueries";
 import Link from "next/link";
 
-async function Page({ params }: { params: { prefix: string } }) {
+async function Page(props: { params: Promise<{ prefix: string }> }) {
+  const params = await props.params;
   const courses = await getCoursesByDepartment(params.prefix); // Cache and revalidate on course update
   const professors = await getProfessorsByDepartment(params.prefix);
 

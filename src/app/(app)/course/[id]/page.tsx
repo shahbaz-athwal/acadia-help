@@ -10,7 +10,8 @@ import Link from "next/link";
 //   return allPages;
 // }
 
-async function Page({ params }: { params: { id: string } }) {
+async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { course, avgDifficulty, avgQuality, ratingCount, ratingDistribution } =
     await getDetailedCourseById(params.id);
 

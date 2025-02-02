@@ -8,7 +8,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-async function Page({ params }: { params: { prefix: string } }) {
+async function Page(props: { params: Promise<{ prefix: string }> }) {
+  const params = await props.params;
   const courses = await getCoursesByDepartment(params.prefix);
   const professors = await getProfessorsByDepartment(params.prefix);
 
