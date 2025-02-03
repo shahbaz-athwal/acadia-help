@@ -1,0 +1,352 @@
+{
+  "Subjects": [
+    {
+      "Value": "EDUC",
+      "Description": "Education",
+      "Count": 147,
+      "Selected": false
+    },
+    {
+      "Value": "KINE",
+      "Description": "Kinesiology",
+      "Count": 144,
+      "Selected": false
+    },
+    {
+      "Value": "BIOL",
+      "Description": "Biology",
+      "Count": 124,
+      "Selected": false
+    },
+    {
+      "Value": "MATH",
+      "Description": "Mathematics and Statistics",
+      "Count": 119,
+      "Selected": false
+    },
+    {
+      "Value": "HIST",
+      "Description": "History",
+      "Count": 118,
+      "Selected": false
+    },
+    {
+      "Value": "POLS",
+      "Description": "Political Science",
+      "Count": 113,
+      "Selected": false
+    },
+    {
+      "Value": "ENGL",
+      "Description": "English",
+      "Count": 112,
+      "Selected": false
+    },
+    {
+      "Value": "MUSI",
+      "Description": "Music",
+      "Count": 110,
+      "Selected": false
+    },
+    {
+      "Value": "CHEM",
+      "Description": "Chemistry",
+      "Count": 84,
+      "Selected": false
+    },
+    {
+      "Value": "BUSI",
+      "Description": "Business Administration",
+      "Count": 82,
+      "Selected": false
+    },
+    {
+      "Value": "SOCI",
+      "Description": "Sociology",
+      "Count": 81,
+      "Selected": false
+    },
+    {
+      "Value": "GEOL",
+      "Description": "Geology",
+      "Count": 70,
+      "Selected": false
+    },
+    {
+      "Value": "PSYC",
+      "Description": "Psychology",
+      "Count": 68,
+      "Selected": false
+    },
+    {
+      "Value": "BIBL",
+      "Description": "Biblical Studies",
+      "Count": 66,
+      "Selected": false
+    },
+    {
+      "Value": "COMP",
+      "Description": "Computer Science",
+      "Count": 63,
+      "Selected": false
+    },
+    {
+      "Value": "PACC",
+      "Description": "Pastoral Care and Counselling",
+      "Count": 57,
+      "Selected": false
+    },
+    {
+      "Value": "NXGN",
+      "Description": "Next Generation Ministry",
+      "Count": 56,
+      "Selected": false
+    },
+    {
+      "Value": "EVAN",
+      "Description": "Evangelism and Mission",
+      "Count": 54,
+      "Selected": false
+    },
+    {
+      "Value": "THEO",
+      "Description": "Theology",
+      "Count": 52,
+      "Selected": false
+    },
+    {
+      "Value": "PAST",
+      "Description": "Pastoral Ministry",
+      "Count": 50,
+      "Selected": false
+    },
+    {
+      "Value": "ECON",
+      "Description": "Economics",
+      "Count": 49,
+      "Selected": false
+    },
+    {
+      "Value": "FRAN",
+      "Description": "French",
+      "Count": 49,
+      "Selected": false
+    },
+    {
+      "Value": "LEDR",
+      "Description": "Leadership",
+      "Count": 49,
+      "Selected": false
+    },
+    {
+      "Value": "NUTR",
+      "Description": "Nutrition",
+      "Count": 48,
+      "Selected": false
+    },
+    {
+      "Value": "CODE",
+      "Description": "Community Development",
+      "Count": 47,
+      "Selected": false
+    },
+    {
+      "Value": "DISP",
+      "Description": "Discipleship",
+      "Count": 46,
+      "Selected": false
+    },
+    {
+      "Value": "APSC",
+      "Description": "Applied Science",
+      "Count": 45,
+      "Selected": false
+    },
+    {
+      "Value": "DMIN",
+      "Description": "Ministry",
+      "Count": 45,
+      "Selected": false
+    },
+    {
+      "Value": "CHUR",
+      "Description": "Church History",
+      "Count": 42,
+      "Selected": false
+    },
+    {
+      "Value": "PHYS",
+      "Description": "Physics",
+      "Count": 42,
+      "Selected": false
+    },
+    {
+      "Value": "PHIL",
+      "Description": "Philosophy",
+      "Count": 41,
+      "Selected": false
+    },
+    {
+      "Value": "IDST",
+      "Description": "Interdisciplinary Studies",
+      "Count": 37,
+      "Selected": false
+    },
+    {
+      "Value": "SPFM",
+      "Description": "Spiritual Formation",
+      "Count": 37,
+      "Selected": false
+    },
+    {
+      "Value": "THEA",
+      "Description": "Theatre",
+      "Count": 35,
+      "Selected": false
+    },
+    {
+      "Value": "CLAS",
+      "Description": "Classics",
+      "Count": 32,
+      "Selected": false
+    },
+    {
+      "Value": "GREE",
+      "Description": "Greek",
+      "Count": 32,
+      "Selected": false
+    },
+    {
+      "Value": "NURS",
+      "Description": "Nursing",
+      "Count": 31,
+      "Selected": false
+    },
+    {
+      "Value": "ART",
+      "Description": "Art",
+      "Count": 27,
+      "Selected": false
+    },
+    {
+      "Value": "GERM",
+      "Description": "German",
+      "Count": 24,
+      "Selected": false
+    },
+    {
+      "Value": "CHAP",
+      "Description": "Chaplaincy",
+      "Count": 22,
+      "Selected": false
+    },
+    {
+      "Value": "INCD",
+      "Description": "Indigenous Community Develop.",
+      "Count": 22,
+      "Selected": false
+    },
+    {
+      "Value": "ENVS",
+      "Description": "Environmental Science",
+      "Count": 20,
+      "Selected": false
+    },
+    {
+      "Value": "WGST",
+      "Description": "Women's and Gender Studies",
+      "Count": 20,
+      "Selected": false
+    },
+    {
+      "Value": "HEBR",
+      "Description": "Hebrew",
+      "Count": 17,
+      "Selected": false
+    },
+    {
+      "Value": "SPAN",
+      "Description": "Spanish",
+      "Count": 17,
+      "Selected": false
+    },
+    {
+      "Value": "CREL",
+      "Description": "Comparative Religion",
+      "Count": 14,
+      "Selected": false
+    },
+    {
+      "Value": "ESST",
+      "Description": "Environ. and Sustain. Studies",
+      "Count": 14,
+      "Selected": false
+    },
+    {
+      "Value": "LATI",
+      "Description": "Latin",
+      "Count": 12,
+      "Selected": false
+    },
+    {
+      "Value": "COOP",
+      "Description": "Cooperative Education",
+      "Count": 11,
+      "Selected": false
+    },
+    {
+      "Value": "BIOT",
+      "Description": "Biotechnology",
+      "Count": 10,
+      "Selected": false
+    },
+    {
+      "Value": "COMM",
+      "Description": "Communications",
+      "Count": 10,
+      "Selected": false
+    },
+    {
+      "Value": "ARAM",
+      "Description": "Aramaic",
+      "Count": 7,
+      "Selected": false
+    },
+    {
+      "Value": "LAWS",
+      "Description": "Law and Society",
+      "Count": 7,
+      "Selected": false
+    },
+    {
+      "Value": "GEOM",
+      "Description": "Applied Geomatics",
+      "Count": 6,
+      "Selected": false
+    },
+    {
+      "Value": "SOPT",
+      "Description": "Social and Political Thought",
+      "Count": 6,
+      "Selected": false
+    },
+    {
+      "Value": "IDTH",
+      "Description": "Interdisciplinary Studies Theo",
+      "Count": 3,
+      "Selected": false
+    },
+    {
+      "Value": "LANG",
+      "Description": "Languages and Literatures",
+      "Count": 3,
+      "Selected": false
+    },
+    {
+      "Value": "MIKM",
+      "Description": "Mi'kmaw",
+      "Count": 2,
+      "Selected": false
+    }
+  ]
+}
